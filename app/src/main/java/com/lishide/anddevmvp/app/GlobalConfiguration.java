@@ -87,7 +87,7 @@ public final class GlobalConfiguration implements ConfigModule {
                 //这里可以自己自定义配置Okhttp的参数
                 .okhttpConfiguration((context1, okhttpBuilder) -> {
 //                    okhttpBuilder.sslSocketFactory(); //支持 Https,详情请百度
-                    okhttpBuilder.writeTimeout(10, TimeUnit.SECONDS);
+                    okhttpBuilder.writeTimeout(60, TimeUnit.SECONDS);
                     //使用一行代码监听 Retrofit／Okhttp 上传下载进度监听,以及 Glide 加载进度监听 详细使用方法查看 https://github.com/JessYanCoding/ProgressManager
                     ProgressManager.getInstance().with(okhttpBuilder);
                     //让 Retrofit 同时支持多个 BaseUrl 以及动态改变 BaseUrl. 详细使用请方法查看 https://github.com/JessYanCoding/RetrofitUrlManager
@@ -98,7 +98,7 @@ public final class GlobalConfiguration implements ConfigModule {
                     rxCacheBuilder.useExpiredDataIfLoaderNotAvailable(true);
                     // 想自定义 RxCache 的缓存文件夹或者解析方式, 如改成 fastjson, 请 return rxCacheBuilder.persistence(cacheDirectory, new FastJsonSpeaker());
                     // 否则请 return null;
-//                    return null;
+                    return null;
                 });
     }
 
