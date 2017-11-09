@@ -24,7 +24,6 @@ import butterknife.BindView;
 
 import timber.log.Timber;
 
-
 /**
  * 用户界面：展示 View 的用法
  *
