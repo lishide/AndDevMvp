@@ -48,15 +48,13 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-//    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation rootProject.ext.dependencies["constraintLayout"]
     implementation(rootProject.ext.dependencies["cardview-v7"]) {
         exclude module: 'support-annotations'
     }
-//    testImplementation 'junit:junit:4.12'
-//    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile 'me.jessyan:arms:2.3.1' //使用Rxjava2
+
+    //MVP 框架（使用Rxjava2）
+    compile 'me.jessyan:arms:2.3.1'
 
     //依赖插件, annotationProcessor 是 AndroidStudio 自带并用来替换 APT
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]

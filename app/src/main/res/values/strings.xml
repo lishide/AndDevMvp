@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndDevMvp</string>
+    <string name="back">back</string>
 </resources>
