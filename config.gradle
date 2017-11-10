@@ -30,7 +30,7 @@ ext {
             "cardview-v7"              : "com.android.support:cardview-v7:${version["androidSupportSdkVersion"]}",
             "annotations"              : "com.android.support:support-annotations:${version["androidSupportSdkVersion"]}",
             "recyclerview-v7"          : "com.android.support:recyclerview-v7:${version["androidSupportSdkVersion"]}",
-            constraintLayout           : "com.android.support.constraint:constraint-layout:${version["constraintLayout"]}",
+            "constraintLayout"         : "com.android.support.constraint:constraint-layout:${version["constraintLayout"]}",
 
             //network
             "retrofit"                 : "com.squareup.retrofit2:retrofit:${version["retrofitSdkVersion"]}",
