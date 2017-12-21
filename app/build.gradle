@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
@@ -16,6 +18,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        // dex突破65535的限制
+        multiDexEnabled true
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86_64", "x86"
+        }
     }
     buildTypes {
         debug {
@@ -50,6 +58,14 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     //Android
     implementation rootProject.ext.dependencies["constraintLayout"]
+    // Seems like it is having version conflict issue.
+    // All support library must be of same version. However,
+    // I didn't use v4 support library before and it works.
+    // I don't know why updating android studio to 2.1.1 causes the issue.
+    // I just force all v4 library to the same as other support libraries.
+    implementation(rootProject.ext.dependencies["support-v4"]) {
+        force = true
+    }
     implementation(rootProject.ext.dependencies["cardview-v7"]) {
         exclude module: 'support-annotations'
     }
@@ -63,17 +79,17 @@ dependencies {
     testImplementation rootProject.ext.dependencies["canary-release"]
 
     //MVP 框架（使用Rxjava2）
-    compile 'me.jessyan:arms:2.3.1'
+    implementation rootProject.ext.dependencies["mvparms"]
 
     //依赖插件, annotationProcessor 是 AndroidStudio 自带并用来替换 APT
-    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+    kapt rootProject.ext.dependencies["dagger2-compiler"]
     //dagger2必须依赖jsr250 annotation
     provided rootProject.ext.dependencies["javax.annotation"]
     implementation rootProject.ext.dependencies["progressmanager"]
     implementation rootProject.ext.dependencies["retrofit-url-manager"]
 
-    //butterknife 插件,很多人因为没加这个而报错,切记!!!
-    annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
+    //butterknife 插件，很多人因为没加这个而报错，切记！！！
+    kapt(rootProject.ext.dependencies["butterknife-compiler"]) {
         exclude module: 'support-annotations'
     }
     implementation rootProject.ext.dependencies["paginate"]

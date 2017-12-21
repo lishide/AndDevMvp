@@ -2,11 +2,11 @@ ext {
 
     android = [
             compileSdkVersion: 26,
-            buildToolsVersion: "26.0.2",
-            minSdkVersion    : 15,
+            buildToolsVersion: "27.0.1",
+            minSdkVersion    : 16,
             targetSdkVersion : 26,
-            versionCode      : 146,
-            versionName      : "2.3.1"
+            versionCode      : 100,
+            versionName      : "1.0.0"
     ]
 
     version = [
@@ -39,10 +39,14 @@ ext {
             "retrofit-adapter-rxjava2" : "com.squareup.retrofit2:adapter-rxjava2:${version["retrofitSdkVersion"]}",
             "okhttp3"                  : "com.squareup.okhttp3:okhttp:3.9.0",
             "okhttp-urlconnection"     : "com.squareup.okhttp:okhttp-urlconnection:2.0.0",
+            "okhttp-logging"           : "com.squareup.okhttp3:logging-interceptor:3.5.0",
             "glide"                    : "com.github.bumptech.glide:glide:${version["glideSdkVersion"]}",
             "glide-compiler"           : "com.github.bumptech.glide:compiler:${version["glideSdkVersion"]}",
             "glide-loader-okhttp3"     : "com.github.bumptech.glide:okhttp3-integration:${version["glideSdkVersion"]}",
             "picasso"                  : "com.squareup.picasso:picasso:2.5.2",
+
+            //本App用的MVP框架（最重要的）
+            "mvparms"                  : "me.jessyan:arms:2.3.1",
 
             //view
             "autolayout"               : "com.zhy:autolayout:1.4.5",
