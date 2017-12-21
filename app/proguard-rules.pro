@@ -245,3 +245,9 @@
 # Marshmallow removed Notification.setLatestEventInfo()
 -dontwarn android.app.Notification
 
+
+################# 本App实体类和presenter start #################
+-keep class com.lishide.anddevmvp.mvp.model.entity.** { *;}
+-keep class com.lishide.anddevmvp.mvp.presenter.** { *;}
+################# 本App实体类和presenter end #################
+

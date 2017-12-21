@@ -51,3 +51,10 @@ Android 应用架构 MVP 使用及常用基础类和工具类的封装。
 如找不到类似 `DaggerMainComponent` 的类，请反复编译一下项目；
 
 ......
+#### 混淆文件添加规则
+开发中发现使用混淆打包时，导出的安装包不能正常运行，报错找不到自己写的实体类和 presenter，则在混淆规则中添加 keep 规则。
+如：
+
+        -keep class com.lishide.anddevmvp.mvp.model.entity.** { *;}
+        -keep class com.lishide.anddevmvp.mvp.presenter.** { *;}
+
