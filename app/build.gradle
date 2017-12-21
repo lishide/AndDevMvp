@@ -93,4 +93,5 @@ dependencies {
         exclude module: 'support-annotations'
     }
     implementation rootProject.ext.dependencies["paginate"]
+    implementation rootProject.ext.dependencies["okhttp-logging"]
 }

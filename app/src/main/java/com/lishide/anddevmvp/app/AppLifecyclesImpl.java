@@ -5,13 +5,11 @@ import android.content.Context;
 
 import com.jess.arms.base.delegate.AppLifecycles;
 import com.jess.arms.utils.ArmsUtils;
+import com.lishide.anddevmvp.BuildConfig;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.ButterKnife;
-
-import com.lishide.anddevmvp.BuildConfig;
-
 import timber.log.Timber;
 
 /**

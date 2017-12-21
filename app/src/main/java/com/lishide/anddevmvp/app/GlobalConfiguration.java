@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 import me.jessyan.progressmanager.ProgressManager;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * app 的全局配置信息在此配置，需要将此实现类声明到 AndroidManifest 中
@@ -35,6 +36,13 @@ public final class GlobalConfiguration implements ConfigModule {
         //Release 时,让框架不再打印 Http 请求和响应的信息
         if (!BuildConfig.LOG_DEBUG) {
             builder.printHttpLogLevel(RequestInterceptor.Level.NONE);
+        }
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        if (BuildConfig.DEBUG) {
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        } else {
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         }
 
         builder.baseurl(Api.APP_DOMAIN)
@@ -88,6 +96,9 @@ public final class GlobalConfiguration implements ConfigModule {
                 .okhttpConfiguration((context1, okhttpBuilder) -> {
 //                    okhttpBuilder.sslSocketFactory(); //支持 Https,详情请百度
                     okhttpBuilder.writeTimeout(60, TimeUnit.SECONDS);
+                    //添加自定义的拦截器
+                    okhttpBuilder.addInterceptor(loggingInterceptor)
+                    ;
                     //使用一行代码监听 Retrofit／Okhttp 上传下载进度监听,以及 Glide 加载进度监听 详细使用方法查看 https://github.com/JessYanCoding/ProgressManager
                     ProgressManager.getInstance().with(okhttpBuilder);
                     //让 Retrofit 同时支持多个 BaseUrl 以及动态改变 BaseUrl. 详细使用请方法查看 https://github.com/JessYanCoding/RetrofitUrlManager
