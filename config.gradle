@@ -59,6 +59,9 @@ ext {
             "paginate"                 : "com.github.markomilos:paginate:0.5.1",
             "vlayout"                  : "com.alibaba.android:vlayout:1.1.0@aar",
 
+            //底部导航
+            "bottombar"                : "com.roughike:bottom-bar:2.3.1",
+
             //rx1
             "rxandroid"                : "io.reactivex:rxandroid:1.2.1",
             "rxjava"                   : "io.reactivex:rxjava:1.3.0",
