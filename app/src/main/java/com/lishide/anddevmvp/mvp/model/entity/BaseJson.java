@@ -1,8 +1,8 @@
 package com.lishide.anddevmvp.mvp.model.entity;
 
-import java.io.Serializable;
-
 import com.lishide.anddevmvp.mvp.model.api.Api;
+
+import java.io.Serializable;
 
 /**
  * 如果你服务器返回的数据格式固定为这种方式（这里只提供思想，服务器返回的数据格式可能不一致，可根据自家服务器返回的格式作更改）
