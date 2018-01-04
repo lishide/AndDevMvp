@@ -54,7 +54,11 @@ Android 应用架构 MVP 使用及常用基础类和工具类的封装。
 #### 混淆文件添加规则
 开发中发现使用混淆打包时，导出的安装包不能正常运行，报错找不到自己写的实体类和 presenter，则在混淆规则中添加 keep 规则。
 如：
+```
+-keep class com.lishide.anddevmvp.mvp.model.entity.** { *;}
+-keep class com.lishide.anddevmvp.mvp.presenter.** { *;}
+```
 
-        -keep class com.lishide.anddevmvp.mvp.model.entity.** { *;}
-        -keep class com.lishide.anddevmvp.mvp.presenter.** { *;}
+#### 主语言切换为 Kotlin
+将工程使用主语言由 Java 切换为 Kotlin，常用类由 Kotlin 语言编写。两种语言的写法差异可查看 *2018-01-04* 两次提交。
 
