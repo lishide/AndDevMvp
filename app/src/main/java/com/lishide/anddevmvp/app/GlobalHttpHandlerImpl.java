@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.jess.arms.http.GlobalHttpHandler;
-import com.jess.arms.http.RequestInterceptor;
+import com.jess.arms.http.log.RequestInterceptor;
 
 import org.json.JSONArray;
 import org.json.JSONException;

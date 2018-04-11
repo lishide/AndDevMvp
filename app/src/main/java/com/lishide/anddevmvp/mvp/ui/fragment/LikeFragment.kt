@@ -32,7 +32,7 @@ class LikeFragment : BaseFragment<LikePresenter>(), LikeContract.View {
                 .inject(this)
     }
 
-    override fun initView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle?): View {
+    override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_like, container, false)
     }
 
@@ -52,7 +52,7 @@ class LikeFragment : BaseFragment<LikePresenter>(), LikeContract.View {
      *
      * @param data
      */
-    override fun setData(data: Any) {
+    override fun setData(data: Any?) {
 
     }
 

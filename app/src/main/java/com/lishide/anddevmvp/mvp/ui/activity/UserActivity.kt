@@ -49,9 +49,7 @@ class UserActivity : BaseActivity<UserPresenter>(), UserContract.View,
                 .inject(this)
     }
 
-    override fun initView(savedInstanceState: Bundle?): Int {
-        return R.layout.activity_user
-    }
+    override fun initView(savedInstanceState: Bundle?): Int = R.layout.activity_user
 
     override fun initData(savedInstanceState: Bundle?) {
         initRecyclerView()
@@ -68,7 +66,7 @@ class UserActivity : BaseActivity<UserPresenter>(), UserContract.View,
     }
 
     override fun onRefresh() {
-        mPresenter.requestUsers(true)
+        mPresenter?.requestUsers(true)
     }
 
     override fun showLoading() {
@@ -118,7 +116,7 @@ class UserActivity : BaseActivity<UserPresenter>(), UserContract.View,
         if (mPaginate == null) {
             val callbacks = object : Paginate.Callbacks {
                 override fun onLoadMore() {
-                    mPresenter.requestUsers(false)
+                    mPresenter?.requestUsers(false)
                 }
 
                 override fun isLoading(): Boolean = isLoadingMore

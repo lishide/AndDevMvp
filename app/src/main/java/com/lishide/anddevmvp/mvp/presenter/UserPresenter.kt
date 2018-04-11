@@ -87,7 +87,7 @@ constructor(
                 .subscribeOn(Schedulers.io())
                 //遇到错误时重试,第一个参数为重试几次,第二个参数为重试的间隔
                 .retryWhen(RetryWithDelay(3, 2))
-                .doOnSubscribe { disposable ->
+                .doOnSubscribe { _ ->
                     if (pullToRefresh) {
                         mRootView.showLoading()//显示下拉刷新的进度条
                     } else {

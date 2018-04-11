@@ -32,7 +32,7 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View {
                 .inject(this)
     }
 
-    override fun initView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle?): View {
+    override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -52,7 +52,7 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View {
      *
      * @param data
      */
-    override fun setData(data: Any) {
+    override fun setData(data: Any?) {
 
     }
 
