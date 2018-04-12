@@ -56,6 +56,13 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    //test
+    testImplementation rootProject.ext.dependencies["junit"]
+    androidTestImplementation rootProject.ext.dependencies["runner"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
+    debugImplementation rootProject.ext.dependencies["canary-debug"]
+    releaseImplementation rootProject.ext.dependencies["canary-release"]
+    testImplementation rootProject.ext.dependencies["canary-release"]
     //Android
     implementation rootProject.ext.dependencies["constraintLayout"]
     // Seems like it is having version conflict issue.
@@ -69,27 +76,14 @@ dependencies {
     implementation(rootProject.ext.dependencies["cardview-v7"]) {
         exclude module: 'support-annotations'
     }
-
-    //test
-    testImplementation rootProject.ext.dependencies["junit"]
-    androidTestImplementation rootProject.ext.dependencies["runner"]
-    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
-    debugImplementation rootProject.ext.dependencies["canary-debug"]
-    releaseImplementation rootProject.ext.dependencies["canary-release"]
-    testImplementation rootProject.ext.dependencies["canary-release"]
-
     //MVP 框架（使用Rxjava2）
     implementation rootProject.ext.dependencies["mvparms"]
-
-    //依赖插件, annotationProcessor 是 AndroidStudio 自带并用来替换 APT
+    //tools
     kapt rootProject.ext.dependencies["dagger2-compiler"]
-    //dagger2必须依赖jsr250 annotation
-    provided rootProject.ext.dependencies["javax.annotation"]
     implementation rootProject.ext.dependencies["progressmanager"]
     implementation rootProject.ext.dependencies["retrofit-url-manager"]
     implementation rootProject.ext.dependencies["lifecyclemodel"]
-
-    //butterknife 插件，很多人因为没加这个而报错，切记！！！
+    //view
     kapt(rootProject.ext.dependencies["butterknife-compiler"]) {
         exclude module: 'support-annotations'
     }
