@@ -3,12 +3,13 @@ package com.lishide.anddevmvp.app;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.google.gson.reflect.TypeToken;
 import com.jess.arms.http.GlobalHttpHandler;
 import com.jess.arms.http.log.RequestInterceptor;
+import com.jess.arms.utils.ArmsUtils;
+import com.lishide.anddevmvp.mvp.model.entity.User;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.List;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -32,17 +33,16 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
     public Response onHttpResultResponse(String httpResult, Interceptor.Chain chain, Response response) {
         // 这里可以先客户端一步拿到每一次http请求的结果,可以解析成json,做一些操作,如检测到token过期后
         // 重新请求token,并重新执行请求
-        try {
-            if (!TextUtils.isEmpty(httpResult) && RequestInterceptor.isJson(response.body().contentType())) {
-                JSONArray array = new JSONArray(httpResult);
-                JSONObject object = (JSONObject) array.get(0);
-                String login = object.getString("login");
-                String avatarUrl = object.getString("avatar_url");
-                Timber.w("Result ------> " + login + "    ||   avatarUrl------> " + avatarUrl);
+        if (!TextUtils.isEmpty(httpResult) && RequestInterceptor.isJson(response.body().contentType())) {
+            try {
+                List<User> list = ArmsUtils.obtainAppComponentFromContext(context).gson().fromJson(httpResult, new TypeToken<List<User>>() {
+                }.getType());
+                User user = list.get(0);
+                Timber.w("Result ------> " + user.getLogin() + "    ||   Avatar_url------> " + user.getAvatarUrl());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return response;
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return response;
         }
 
         /*
