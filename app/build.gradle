@@ -7,17 +7,18 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
-    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfiguration.android["compileSdkVersion"]
+    buildToolsVersion globalConfiguration.android["buildToolsVersion"]
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "com.lishide.anddevmvp"
-        minSdkVersion rootProject.ext.android["minSdkVersion"]
-        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion globalConfiguration.android["minSdkVersion"]
+        targetSdkVersion globalConfiguration.android["targetSdkVersion"]
+        versionCode globalConfiguration.android["versionCode"]
+        versionName globalConfiguration.android["versionName"]
+        testInstrumentationRunner globalConfiguration.dependencies["androidJUnitRunner"]
         // dex突破65535的限制
         multiDexEnabled true
 
@@ -55,39 +56,40 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    def appDependencies = rootProject.ext.dependencies
     //test
-    testImplementation rootProject.ext.dependencies["junit"]
-    androidTestImplementation rootProject.ext.dependencies["runner"]
-    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
-    debugImplementation rootProject.ext.dependencies["canary-debug"]
-    releaseImplementation rootProject.ext.dependencies["canary-release"]
-    testImplementation rootProject.ext.dependencies["canary-release"]
+    testImplementation appDependencies["junit"]
+    androidTestImplementation appDependencies["runner"]
+    androidTestImplementation appDependencies["espresso-core"]
+    debugImplementation appDependencies["canary-debug"]
+    releaseImplementation appDependencies["canary-release"]
+    testImplementation appDependencies["canary-release"]
     //Android
-    implementation rootProject.ext.dependencies["constraintLayout"]
+    implementation appDependencies["constraintLayout"]
     // Seems like it is having version conflict issue.
     // All support library must be of same version. However,
     // I didn't use v4 support library before and it works.
     // I don't know why updating android studio to 2.1.1 causes the issue.
     // I just force all v4 library to the same as other support libraries.
-//    implementation(rootProject.ext.dependencies["support-v4"]) {
+//    implementation(appDependencies["support-v4"]) {
 //        force = true
 //    }
-    implementation(rootProject.ext.dependencies["cardview-v7"]) {
+    implementation(appDependencies["cardview-v7"]) {
         exclude module: 'support-annotations'
     }
     //MVP 框架（使用Rxjava2）
-    implementation rootProject.ext.dependencies["mvparms"]
+    implementation appDependencies["mvparms"]
     //tools
-    kapt rootProject.ext.dependencies["dagger2-compiler"]
-    implementation rootProject.ext.dependencies["progressmanager"]
-    implementation rootProject.ext.dependencies["retrofit-url-manager"]
-    implementation rootProject.ext.dependencies["lifecyclemodel"]
+    kapt appDependencies["dagger2-compiler"]
+    implementation appDependencies["progressmanager"]
+    implementation appDependencies["retrofit-url-manager"]
+    implementation appDependencies["lifecyclemodel"]
     //view
-    kapt(rootProject.ext.dependencies["butterknife-compiler"]) {
+    kapt(appDependencies["butterknife-compiler"]) {
         exclude module: 'support-annotations'
     }
-    implementation rootProject.ext.dependencies["paginate"]
-    implementation rootProject.ext.dependencies["okhttp-logging"]
-    implementation rootProject.ext.dependencies["bottombar"]
+    implementation appDependencies["paginate"]
+    implementation appDependencies["okhttp-logging"]
+    implementation appDependencies["bottombar"]
 }
