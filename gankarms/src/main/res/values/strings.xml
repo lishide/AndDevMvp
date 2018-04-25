@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">gankarms</string>
+    <string name="back">back</string>
+
+    <string name="title_home">首页</string>
+    <string name="title_welfare">福利</string>
+    <string name="title_like">收藏</string>
 </resources>

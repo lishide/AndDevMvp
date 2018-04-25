@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary">
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ellipsize="end"
+        android:maxEms="8"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_18" />
+
+    <TextView
+        android:id="@+id/tv_rightBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:ellipsize="end"
+        android:maxEms="4"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_16"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_rightBtn"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:padding="2dp"
+        android:visibility="gone" />
+</android.support.v7.widget.Toolbar>

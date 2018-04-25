@@ -1,34 +1,89 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 android {
-    compileSdkVersion 27
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfiguration.android["compileSdkVersion"]
     defaultConfig {
         applicationId "com.lishide.gankarms"
-        minSdkVersion 15
-        targetSdkVersion 27
+        minSdkVersion globalConfiguration.android["minSdkVersion"]
+        targetSdkVersion globalConfiguration.android["targetSdkVersion"]
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner globalConfiguration.dependencies["androidJUnitRunner"]
+        // dex突破65535的限制
+        multiDexEnabled true
 
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86_64", "x86"
+        }
     }
-
     buildTypes {
-        release {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField "boolean", "USE_CANARY", "true"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
 
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField "boolean", "USE_CANARY", "false"
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+        disable "ResourceType"
+        abortOnError false
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    def appDependencies = rootProject.ext.dependencies
+    //test
+    testImplementation appDependencies["junit"]
+    androidTestImplementation appDependencies["runner"]
+    androidTestImplementation appDependencies["espresso-core"]
+    debugImplementation appDependencies["canary-debug"]
+    releaseImplementation appDependencies["canary-release"]
+    testImplementation appDependencies["canary-release"]
+    //Android
+    implementation appDependencies["constraintLayout"]
+    // Seems like it is having version conflict issue.
+    // All support library must be of same version. However,
+    // I didn't use v4 support library before and it works.
+    // I don't know why updating android studio to 2.1.1 causes the issue.
+    // I just force all v4 library to the same as other support libraries.
+//    implementation(appDependencies["support-v4"]) {
+//        force = true
+//    }
+    implementation(appDependencies["cardview-v7"]) {
+        exclude module: 'support-annotations'
+    }
+    //MVP 框架（使用Rxjava2）
+    implementation appDependencies["mvparms"]
+    //tools
+    kapt appDependencies["dagger2-compiler"]
+    implementation appDependencies["progressmanager"]
+    implementation appDependencies["retrofit-url-manager"]
+    implementation appDependencies["lifecyclemodel"]
+    //view
+    kapt(appDependencies["butterknife-compiler"]) {
+        exclude module: 'support-annotations'
+    }
+    implementation appDependencies["paginate"]
+    implementation appDependencies["okhttp-logging"]
+    implementation appDependencies["bottombar"]
 }
