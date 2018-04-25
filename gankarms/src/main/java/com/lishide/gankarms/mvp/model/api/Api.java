@@ -7,6 +7,6 @@ package com.lishide.gankarms.mvp.model.api;
  * @date 2017/11/09
  */
 public interface Api {
-    String APP_DOMAIN = "https://api.github.com";
+    String APP_DOMAIN = "http://gank.io/";
     String RequestSuccess = "0";
 }

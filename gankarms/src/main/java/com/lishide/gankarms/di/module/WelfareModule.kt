@@ -1,10 +1,15 @@
 package com.lishide.gankarms.di.module
 
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.jess.arms.di.scope.ActivityScope
 import com.lishide.gankarms.mvp.contract.WelfareContract
 import com.lishide.gankarms.mvp.model.WelfareModel
+import com.lishide.gankarms.mvp.model.entity.GankEntity
+import com.lishide.gankarms.mvp.ui.adapter.WelfareAdapter
 import dagger.Module
 import dagger.Provides
+import java.util.*
 
 @Module
 class WelfareModule
@@ -26,4 +31,18 @@ class WelfareModule
     internal fun provideWelfareModel(model: WelfareModel): WelfareContract.Model {
         return model
     }
+
+    @ActivityScope
+    @Provides
+    internal fun provideLayoutManager(): RecyclerView.LayoutManager =
+            GridLayoutManager(view.getContext(), 2)
+
+    @ActivityScope
+    @Provides
+    internal fun provideStoreList(): ArrayList<GankEntity.ResultsBean> = ArrayList()
+
+    @ActivityScope
+    @Provides
+    internal fun provideWelfareAdapter(list: ArrayList<GankEntity.ResultsBean>): RecyclerView.Adapter<*> =
+            WelfareAdapter(list)
 }
