@@ -1,6 +1,7 @@
 package com.lishide.gankarms.mvp.ui.holder
 
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import com.jess.arms.base.BaseHolder
 import com.jess.arms.di.component.AppComponent
@@ -9,6 +10,7 @@ import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
 import com.lishide.gankarms.R
 import com.lishide.gankarms.mvp.model.entity.GankEntity
+import java.util.*
 
 /**
  * 福利 Item Holder
@@ -27,6 +29,10 @@ class WelfareItemHolder(itemView: View) : BaseHolder<GankEntity.ResultsBean>(ite
 
     init {
         with(itemView) {
+            val params: ViewGroup.LayoutParams = this.layoutParams
+            params.height = Random().nextInt(10) * 50 + 500
+            itemView.layoutParams = params
+
             mAvatar = this.findViewById(R.id.iv_avatar)
         }
         //可以在任何可以拿到 Context 的地方,拿到 AppComponent,从而得到用 Dagger 管理的单例对象

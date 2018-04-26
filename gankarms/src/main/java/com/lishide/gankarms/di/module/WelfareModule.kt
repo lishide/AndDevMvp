@@ -1,7 +1,7 @@
 package com.lishide.gankarms.di.module
 
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
 import com.jess.arms.di.scope.ActivityScope
 import com.lishide.gankarms.mvp.contract.WelfareContract
 import com.lishide.gankarms.mvp.model.WelfareModel
@@ -35,7 +35,7 @@ class WelfareModule
     @ActivityScope
     @Provides
     internal fun provideLayoutManager(): RecyclerView.LayoutManager =
-            GridLayoutManager(view.getContext(), 2)
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
     @ActivityScope
     @Provides
