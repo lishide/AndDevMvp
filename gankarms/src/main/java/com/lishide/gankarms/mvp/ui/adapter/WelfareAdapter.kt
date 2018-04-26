@@ -9,7 +9,7 @@ import com.lishide.gankarms.mvp.model.entity.GankEntity
 import com.lishide.gankarms.mvp.ui.holder.WelfareItemHolder
 
 /**
- * 用户列表适配器：展示 [DefaultAdapter] 的用法
+ * 福利列表适配器
  *
  * @author lishide
  * @date 2017/11/09

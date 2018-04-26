@@ -11,7 +11,7 @@ import com.lishide.gankarms.R
 import com.lishide.gankarms.mvp.model.entity.GankEntity
 
 /**
- * 用户Item Holder：展示 [BaseHolder] 的用法
+ * 福利 Item Holder
  *
  * @author lishide
  * @date 2017/11/09

@@ -247,7 +247,7 @@
 
 
 ################# 本App实体类和presenter start #################
--keep class com.lishide.anddevmvp.mvp.model.entity.** { *;}
--keep class com.lishide.anddevmvp.mvp.presenter.** { *;}
+-keep class com.lishide.gankarms.mvp.model.entity.** { *;}
+-keep class com.lishide.gankarms.mvp.presenter.** { *;}
 ################# 本App实体类和presenter end #################
 
