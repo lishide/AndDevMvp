@@ -75,24 +75,26 @@ constructor(model: WelfareContract.Model,
                     }
 
                     override fun onNext(t: GankEntity) {
-                        //如果是下拉刷新则清空列表
-                        if (pullToRefresh) {
-                            mList?.clear()
-                        }
-                        //更新之前列表总长度,用于确定加载更多的起始位置
-                        preEndIndex = mList?.size ?: 0
-                        mList?.addAll(t.results)
-                        if (pullToRefresh) {
-                            mAdapter?.notifyDataSetChanged()
-                        } else {
-                            if (t.results.size == 0) {
-                                mRootView.hasLoadedAll()
+                        if (!t.error) {
+                            //如果是下拉刷新则清空列表
+                            if (pullToRefresh) {
+                                mList?.clear()
                             }
-                            mAdapter?.notifyItemRangeInserted(preEndIndex, t.results.size)
+                            //更新之前列表总长度,用于确定加载更多的起始位置
+                            preEndIndex = mList?.size ?: 0
+                            mList?.addAll(t.results)
+                            if (pullToRefresh) {
+                                mAdapter?.notifyDataSetChanged()
+                            } else {
+                                if (t.results.size == 0) {
+                                    mRootView.hasLoadedAll()
+                                }
+                                mAdapter?.notifyItemRangeInserted(preEndIndex, t.results.size)
+                            }
+                            mRootView.setEmpty(mList?.isEmpty() ?: false)
                         }
-                        mRootView.setEmpty(mList?.isEmpty() ?: false)
-                    }
 
+                    }
                 })
     }
 

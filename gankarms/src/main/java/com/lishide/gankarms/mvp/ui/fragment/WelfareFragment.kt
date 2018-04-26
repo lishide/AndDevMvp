@@ -19,6 +19,7 @@ import com.lishide.gankarms.di.module.WelfareModule
 import com.lishide.gankarms.mvp.contract.WelfareContract
 import com.lishide.gankarms.mvp.presenter.WelfarePresenter
 import com.paginate.Paginate
+import kotlinx.android.synthetic.main.layout_empty_list.*
 import kotlinx.android.synthetic.main.layout_refresh_list.*
 import javax.inject.Inject
 
@@ -103,7 +104,7 @@ class WelfareFragment : BaseFragment<WelfarePresenter>(), WelfareContract.View,
 
     }
 
-    override fun getContext(): FragmentActivity = activity!!
+    override fun getContext(): FragmentActivity? = activity
 
     override fun startLoadMore() {
         isLoadingMore = true
@@ -118,6 +119,8 @@ class WelfareFragment : BaseFragment<WelfarePresenter>(), WelfareContract.View,
     }
 
     override fun setEmpty(isEmpty: Boolean) {
+        recyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
+        ll_empty.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
 
     /**
