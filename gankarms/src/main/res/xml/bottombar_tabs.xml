@@ -10,7 +10,7 @@
         title="@string/title_welfare" />
 
     <tab
-        icon="@drawable/ic_dashboard_black_24dp"
+        icon="@drawable/ic_notifications_black_24dp"
         id="@+id/tab_like"
         title="@string/title_like" />
 
