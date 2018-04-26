@@ -5,13 +5,20 @@ import com.jess.arms.di.scope.FragmentScope
 import com.jess.arms.http.imageloader.ImageLoader
 import com.jess.arms.integration.AppManager
 import com.jess.arms.mvp.BasePresenter
-import com.lishide.gankarms.mvp.contract.LikeContract
+import com.lishide.gankarms.mvp.contract.HomeChildContract
 import me.jessyan.rxerrorhandler.core.RxErrorHandler
 import javax.inject.Inject
 
+
 @FragmentScope
-class LikePresenter @Inject
-constructor(model: LikeContract.Model, rootView: LikeContract.View, private var mErrorHandler: RxErrorHandler?, private var mApplication: Application?, private var mImageLoader: ImageLoader?, private var mAppManager: AppManager?) : BasePresenter<LikeContract.Model, LikeContract.View>(model, rootView) {
+class HomeChildPresenter @Inject
+constructor(model: HomeChildContract.Model,
+            rootView: HomeChildContract.View,
+            private var mErrorHandler: RxErrorHandler?,
+            private var mApplication: Application?,
+            private var mImageLoader: ImageLoader?,
+            private var mAppManager: AppManager?
+) : BasePresenter<HomeChildContract.Model, HomeChildContract.View>(model, rootView) {
 
     override fun onDestroy() {
         super.onDestroy()
@@ -20,5 +27,4 @@ constructor(model: LikeContract.Model, rootView: LikeContract.View, private var 
         this.mImageLoader = null
         this.mApplication = null
     }
-
 }

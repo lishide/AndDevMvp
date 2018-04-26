@@ -2,7 +2,7 @@ package com.lishide.gankarms.mvp.presenter
 
 import android.app.Application
 import android.support.v7.widget.RecyclerView
-import com.jess.arms.di.scope.ActivityScope
+import com.jess.arms.di.scope.FragmentScope
 import com.jess.arms.http.imageloader.ImageLoader
 import com.jess.arms.integration.AppManager
 import com.jess.arms.mvp.BasePresenter
@@ -17,7 +17,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler
 import me.jessyan.rxerrorhandler.handler.RetryWithDelay
 import javax.inject.Inject
 
-@ActivityScope
+@FragmentScope
 class WelfarePresenter @Inject
 constructor(model: WelfareContract.Model,
             rootView: WelfareContract.View,

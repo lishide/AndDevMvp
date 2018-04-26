@@ -1,6 +1,6 @@
 package com.lishide.gankarms.di.module
 
-import com.jess.arms.di.scope.ActivityScope
+import com.jess.arms.di.scope.FragmentScope
 import com.lishide.gankarms.mvp.contract.HomeContract
 import com.lishide.gankarms.mvp.model.HomeModel
 import dagger.Module
@@ -15,13 +15,13 @@ class HomeModule
  */
 (private val view: HomeContract.View) {
 
-    @ActivityScope
+    @FragmentScope
     @Provides
     internal fun provideHomeView(): HomeContract.View {
         return this.view
     }
 
-    @ActivityScope
+    @FragmentScope
     @Provides
     internal fun provideHomeModel(model: HomeModel): HomeContract.Model {
         return model

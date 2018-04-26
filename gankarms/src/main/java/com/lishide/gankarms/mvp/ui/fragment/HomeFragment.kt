@@ -2,6 +2,7 @@ package com.lishide.gankarms.mvp.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,14 @@ import com.jess.arms.base.BaseFragment
 import com.jess.arms.di.component.AppComponent
 import com.jess.arms.utils.ArmsUtils
 import com.jess.arms.utils.Preconditions.checkNotNull
+import com.lishide.gankarms.R
+import com.lishide.gankarms.app.constant.CategoryConstant
+import com.lishide.gankarms.di.component.DaggerHomeComponent
 import com.lishide.gankarms.di.module.HomeModule
 import com.lishide.gankarms.mvp.contract.HomeContract
 import com.lishide.gankarms.mvp.presenter.HomePresenter
-import com.lishide.gankarms.R
-import com.lishide.gankarms.di.component.DaggerHomeComponent
+import com.lishide.gankarms.mvp.ui.adapter.HomePagerAdapter
+import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
  * 首页 Fragment
@@ -22,6 +26,13 @@ import com.lishide.gankarms.di.component.DaggerHomeComponent
  * @date 2018/01/03
  */
 class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View {
+
+    private var mData = mutableListOf(
+            CategoryConstant.ANDROID_STR,
+            CategoryConstant.IOS_STR,
+            CategoryConstant.QIAN_STR
+    )
+    private var mHomePagerAdapter: HomePagerAdapter? = null
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerHomeComponent //如找不到该类,请编译一下项目
@@ -37,7 +48,14 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-
+        if (mData.size > 4) {
+            tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
+        } else {
+            tabLayout.tabMode = TabLayout.MODE_FIXED
+        }
+        mHomePagerAdapter = HomePagerAdapter(childFragmentManager, mData)
+        viewPager.adapter = mHomePagerAdapter
+        tabLayout.setupWithViewPager(viewPager)
     }
 
     /**

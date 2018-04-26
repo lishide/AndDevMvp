@@ -1,6 +1,6 @@
 package com.lishide.gankarms.di.module
 
-import com.jess.arms.di.scope.ActivityScope
+import com.jess.arms.di.scope.FragmentScope
 import com.lishide.gankarms.mvp.contract.LikeContract
 import com.lishide.gankarms.mvp.model.LikeModel
 import dagger.Module
@@ -15,13 +15,13 @@ class LikeModule
  */
 (private val view: LikeContract.View) {
 
-    @ActivityScope
+    @FragmentScope
     @Provides
     internal fun provideLikeView(): LikeContract.View {
         return this.view
     }
 
-    @ActivityScope
+    @FragmentScope
     @Provides
     internal fun provideLikeModel(model: LikeModel): LikeContract.Model {
         return model

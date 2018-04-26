@@ -2,7 +2,7 @@ package com.lishide.gankarms.di.module
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
-import com.jess.arms.di.scope.ActivityScope
+import com.jess.arms.di.scope.FragmentScope
 import com.lishide.gankarms.mvp.contract.WelfareContract
 import com.lishide.gankarms.mvp.model.WelfareModel
 import com.lishide.gankarms.mvp.model.entity.GankEntity
@@ -20,28 +20,28 @@ class WelfareModule
  */
 (private val view: WelfareContract.View) {
 
-    @ActivityScope
+    @FragmentScope
     @Provides
     internal fun provideWelfareView(): WelfareContract.View {
         return this.view
     }
 
-    @ActivityScope
+    @FragmentScope
     @Provides
     internal fun provideWelfareModel(model: WelfareModel): WelfareContract.Model {
         return model
     }
 
-    @ActivityScope
+    @FragmentScope
     @Provides
     internal fun provideLayoutManager(): RecyclerView.LayoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-    @ActivityScope
+    @FragmentScope
     @Provides
     internal fun provideStoreList(): ArrayList<GankEntity.ResultsBean> = ArrayList()
 
-    @ActivityScope
+    @FragmentScope
     @Provides
     internal fun provideWelfareAdapter(list: ArrayList<GankEntity.ResultsBean>): RecyclerView.Adapter<*> =
             WelfareAdapter(list)
