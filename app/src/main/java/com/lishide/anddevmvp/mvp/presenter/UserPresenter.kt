@@ -104,7 +104,7 @@ constructor(
                 }
                 //使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .subscribe(object : ErrorHandleSubscriber<List<User>>(mErrorHandler!!) {
+                .subscribe(object : ErrorHandleSubscriber<List<User>>(mErrorHandler) {
                     override fun onNext(users: List<User>) {
                         //记录最后一个id,用于下一次请求
                         lastUserId = users[users.size - 1].id
@@ -113,7 +113,7 @@ constructor(
                             mUsers?.clear()
                         }
                         //更新之前列表总长度,用于确定加载更多的起始位置
-                        preEndIndex = mUsers!!.size
+                        preEndIndex = mUsers?.size ?: 0
                         mUsers?.addAll(users)
                         if (pullToRefresh) {
                             mAdapter?.notifyDataSetChanged()

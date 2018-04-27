@@ -10,15 +10,15 @@ import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
 import com.jess.arms.utils.ArmsUtils
 import com.jess.arms.utils.Preconditions.checkNotNull
+import com.lishide.gankarms.R
+import com.lishide.gankarms.app.utils.EventBusTags
+import com.lishide.gankarms.di.component.DaggerMainComponent
 import com.lishide.gankarms.di.module.MainModule
 import com.lishide.gankarms.mvp.contract.MainContract
 import com.lishide.gankarms.mvp.presenter.MainPresenter
 import com.lishide.gankarms.mvp.ui.fragment.HomeFragment
 import com.lishide.gankarms.mvp.ui.fragment.LikeFragment
 import com.lishide.gankarms.mvp.ui.fragment.WelfareFragment
-import com.lishide.gankarms.R
-import com.lishide.gankarms.app.utils.EventBusTags.ACTIVITY_FRAGMENT_REPLACE
-import com.lishide.gankarms.di.component.DaggerMainComponent
 import com.roughike.bottombar.BottomBar
 import com.roughike.bottombar.OnTabSelectListener
 import java.util.*
@@ -64,7 +64,7 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
             val transaction = supportFragmentManager.beginTransaction()
             if (currentFragment != to) {
                 currentFragment = to
-                if (!to!!.isAdded) {
+                if (to?.isAdded == false) {
                     transaction.hide(from).add(R.id.contentContainer, to)
                 } else {
                     transaction.hide(from).show(to)
@@ -128,7 +128,7 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         //保存当前Activity显示的Fragment索引
-        outState!!.putInt(ACTIVITY_FRAGMENT_REPLACE, mReplace)
+        outState?.putInt(EventBusTags.ACTIVITY_FRAGMENT_REPLACE, mReplace)
     }
 
     override fun onDestroy() {
