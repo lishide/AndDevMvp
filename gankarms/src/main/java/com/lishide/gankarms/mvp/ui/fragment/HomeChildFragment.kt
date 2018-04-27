@@ -4,10 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Message
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
+import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jess.arms.base.BaseFragment
+import com.jess.arms.base.DefaultAdapter
 import com.jess.arms.di.component.AppComponent
 import com.jess.arms.utils.ArmsUtils
 import com.jess.arms.utils.Preconditions.checkNotNull
@@ -16,6 +20,10 @@ import com.lishide.gankarms.di.component.DaggerHomeChildComponent
 import com.lishide.gankarms.di.module.HomeChildModule
 import com.lishide.gankarms.mvp.contract.HomeChildContract
 import com.lishide.gankarms.mvp.presenter.HomeChildPresenter
+import com.paginate.Paginate
+import kotlinx.android.synthetic.main.layout_empty_list.*
+import kotlinx.android.synthetic.main.layout_refresh_list.*
+import javax.inject.Inject
 
 /**
  * 首页子 Fragment
@@ -23,8 +31,24 @@ import com.lishide.gankarms.mvp.presenter.HomeChildPresenter
  * @author lishide
  * @date 2018/04/26
  */
-class HomeChildFragment : BaseFragment<HomeChildPresenter>(), HomeChildContract.View {
+class HomeChildFragment : BaseFragment<HomeChildPresenter>(), HomeChildContract.View,
+        SwipeRefreshLayout.OnRefreshListener {
+
+    //控件是否已经初始化
+    private var isCreateView: Boolean = false
+    //是否已经加载过数据
+    private var isLoadData = false
+
     private var type: String? = null
+
+    @Inject
+    lateinit var mLayoutManager: RecyclerView.LayoutManager
+    @Inject
+    lateinit var mAdapter: RecyclerView.Adapter<*>
+
+    private var mPaginate: Paginate? = null
+    private var isLoadingMore: Boolean = false
+    private var isLoadedAll: Boolean = false
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerHomeChildComponent //如找不到该类,请编译一下项目
@@ -41,6 +65,32 @@ class HomeChildFragment : BaseFragment<HomeChildPresenter>(), HomeChildContract.
 
     override fun initData(savedInstanceState: Bundle?) {
         type = arguments?.getString(ARG_PARAM)
+
+        swipeRefreshLayout.setOnRefreshListener(this)
+        ArmsUtils.configRecyclerView(recyclerView, mLayoutManager)
+
+        recyclerView.adapter = mAdapter
+        initPaginate()
+
+        if (userVisibleHint) {
+            lazyLoad()
+        }
+        isCreateView = true
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser && isCreateView) {
+            lazyLoad()
+        }
+    }
+
+    private fun lazyLoad() {
+        //如果没有加载过就加载，否则就不再加载了
+        if (!isLoadData) {
+            //加载数据操作
+            mPresenter?.requestData(type, true)
+        }
     }
 
     /**
@@ -85,12 +135,16 @@ class HomeChildFragment : BaseFragment<HomeChildPresenter>(), HomeChildContract.
 
     }
 
-    override fun showLoading() {
+    override fun onRefresh() {
+        mPresenter?.requestData(type, true)
+    }
 
+    override fun showLoading() {
+        swipeRefreshLayout.isRefreshing = true
     }
 
     override fun hideLoading() {
-
+        swipeRefreshLayout.isRefreshing = false
     }
 
     override fun showMessage(message: String) {
@@ -107,13 +161,61 @@ class HomeChildFragment : BaseFragment<HomeChildPresenter>(), HomeChildContract.
 
     }
 
+    override fun getContext(): FragmentActivity? = activity
+
+    override fun startLoadMore() {
+        isLoadingMore = true
+    }
+
+    override fun endLoadMore() {
+        isLoadingMore = false
+    }
+
+    override fun hasLoadedAll() {
+        isLoadedAll = true
+    }
+
+    override fun setEmpty(isEmpty: Boolean) {
+        recyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
+        ll_empty.visibility = if (isEmpty) View.VISIBLE else View.GONE
+    }
+
+    /**
+     * 初始化Paginate,用于加载更多
+     */
+    private fun initPaginate() {
+        if (mPaginate == null) {
+            val callbacks = object : Paginate.Callbacks {
+                override fun onLoadMore() {
+                    mPresenter?.requestData(type, false)
+                }
+
+                override fun isLoading(): Boolean = isLoadingMore
+
+                override fun hasLoadedAllItems(): Boolean = isLoadedAll
+            }
+
+            mPaginate = Paginate.with(recyclerView, callbacks)
+                    .setLoadingTriggerThreshold(0)
+                    .build()
+            mPaginate?.setHasMoreDataToLoad(false)
+        }
+    }
+
+    override fun onDestroy() {
+        //super.onDestroy()之后会unbind,所有view被置为null,所以必须在之前调用
+        DefaultAdapter.releaseAllHolder(recyclerView)
+        super.onDestroy()
+        this.mPaginate = null
+    }
+
     companion object {
         private const val ARG_PARAM = "cateName"
 
         fun newInstance(cateName: String): HomeChildFragment {
             val fragment = HomeChildFragment()
             val bundle = Bundle()
-            bundle.putString("cateName", cateName)
+            bundle.putString(ARG_PARAM, cateName)
             fragment.arguments = bundle
             return fragment
         }
