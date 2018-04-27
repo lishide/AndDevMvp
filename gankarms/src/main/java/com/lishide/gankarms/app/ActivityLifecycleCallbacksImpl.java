@@ -2,11 +2,11 @@ package com.lishide.gankarms.app;
 
 import android.app.Activity;
 import android.app.Application;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
 
 import com.lishide.gankarms.R;
 
@@ -46,10 +46,12 @@ public class ActivityLifecycleCallbacksImpl implements Application.ActivityLifec
                 }
                 mToolbar.setNavigationIcon(R.mipmap.ic_arrow_back_white_24dp);
                 mToolbar.setNavigationOnClickListener(v -> activity.onBackPressed());
+                mToolbar.setTitleTextColor(Color.WHITE);
+                mToolbar.setTitle(activity.getTitle());
             }
-            if (activity.findViewById(R.id.toolbar_title) != null) {
-                ((TextView) activity.findViewById(R.id.toolbar_title)).setText(activity.getTitle());
-            }
+//            if (activity.findViewById(R.id.toolbar_title) != null) {
+//                ((TextView) activity.findViewById(R.id.toolbar_title)).setText(activity.getTitle());
+//            }
         }
     }
 

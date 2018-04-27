@@ -79,6 +79,8 @@ dependencies {
     implementation appDependencies["progressmanager"]
     implementation appDependencies["retrofit-url-manager"]
     implementation appDependencies["lifecyclemodel"]
+    //anko
+    implementation appDependencies["anko-commons"]
     //view
     kapt(appDependencies["butterknife-compiler"]) {
         exclude module: 'support-annotations'

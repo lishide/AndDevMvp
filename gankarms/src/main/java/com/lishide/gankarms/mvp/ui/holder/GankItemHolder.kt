@@ -10,6 +10,8 @@ import com.jess.arms.utils.ArmsUtils
 import com.lishide.gankarms.R
 import com.lishide.gankarms.app.constant.CategoryConstant
 import com.lishide.gankarms.mvp.model.entity.GankEntity
+import com.lishide.gankarms.mvp.ui.activity.DetailActivity
+import org.jetbrains.anko.startActivity
 
 /**
  * 干货 Item Holder
@@ -54,6 +56,10 @@ class GankItemHolder(itemView: View) : BaseHolder<GankEntity.ResultsBean>(itemVi
                     else -> 0
                 }
         ivImage?.setImageResource(imgResId)
+
+        itemView.setOnClickListener {
+            it.context.startActivity<DetailActivity>("title" to data.desc, "url" to data.url)
+        }
     }
 
     override fun onRelease() {
