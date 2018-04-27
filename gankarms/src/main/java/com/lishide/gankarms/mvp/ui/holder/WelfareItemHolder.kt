@@ -16,7 +16,7 @@ import java.util.*
  * 福利 Item Holder
  *
  * @author lishide
- * @date 2017/11/09
+ * @date 2018/04/25
  */
 class WelfareItemHolder(itemView: View) : BaseHolder<GankEntity.ResultsBean>(itemView) {
 
