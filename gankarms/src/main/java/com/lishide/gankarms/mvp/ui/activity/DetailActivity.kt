@@ -2,6 +2,7 @@ package com.lishide.gankarms.mvp.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
@@ -48,6 +49,10 @@ class DetailActivity : BaseActivity<DetailPresenter>(), DetailContract.View {
         url = bundle.getString("url")
 
         this.title = titleStr
+
+        fab.setOnClickListener {
+            showMsg("fab click")
+        }
         initWebView()
     }
 
@@ -80,6 +85,15 @@ class DetailActivity : BaseActivity<DetailPresenter>(), DetailContract.View {
     override fun showMessage(message: String) {
         checkNotNull(message)
         ArmsUtils.snackbarText(message)
+    }
+
+    /**
+     * Show Snackbar message
+     * 设置 View，避免 Snackbar 遮住 FAB。
+     */
+    private fun showMsg(msg: String) {
+        checkNotNull(msg)
+        Snackbar.make(mainContent, msg, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun launchActivity(intent: Intent) {

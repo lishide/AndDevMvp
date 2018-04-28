@@ -6,4 +6,6 @@
     <!--常用字号-->
     <dimen name="sp_16">16sp</dimen>
     <dimen name="sp_18">18sp</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
