@@ -9,6 +9,7 @@ import com.jess.arms.mvp.BaseModel
 import com.lishide.gankarms.app.constant.AppConstants
 import com.lishide.gankarms.mvp.contract.HomeChildContract
 import com.lishide.gankarms.mvp.model.api.service.CommonService
+import com.lishide.gankarms.mvp.model.entity.BaseResponse
 import com.lishide.gankarms.mvp.model.entity.GankEntity
 import io.reactivex.Observable
 
@@ -18,7 +19,7 @@ import javax.inject.Inject
 @FragmentScope
 class HomeChildModel @Inject
 constructor(repositoryManager: IRepositoryManager, private var mGson: Gson?, private var mApplication: Application?) : BaseModel(repositoryManager), HomeChildContract.Model {
-    override fun gank(type: String?, page: String): Observable<GankEntity> {
+    override fun gank(type: String?, page: String): Observable<BaseResponse<List<GankEntity>>> {
         return mRepositoryManager.obtainRetrofitService(CommonService::class.java)
                 .gank(type, AppConstants.PAGE_SIZE, page)
     }

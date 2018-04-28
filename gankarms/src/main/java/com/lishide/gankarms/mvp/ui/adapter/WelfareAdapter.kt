@@ -14,9 +14,9 @@ import com.lishide.gankarms.mvp.ui.holder.WelfareItemHolder
  * @author lishide
  * @date 2018/04/25
  */
-class WelfareAdapter(infos: List<GankEntity.ResultsBean>) : DefaultAdapter<GankEntity.ResultsBean>(infos) {
+class WelfareAdapter(infos: List<GankEntity>) : DefaultAdapter<GankEntity>(infos) {
 
-    override fun getHolder(v: View, viewType: Int): BaseHolder<GankEntity.ResultsBean> = WelfareItemHolder(v)
+    override fun getHolder(v: View, viewType: Int): BaseHolder<GankEntity> = WelfareItemHolder(v)
 
     override fun getLayoutId(viewType: Int): Int = R.layout.recycle_item_gril
 }

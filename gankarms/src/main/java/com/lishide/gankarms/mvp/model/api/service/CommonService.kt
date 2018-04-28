@@ -1,5 +1,6 @@
 package com.lishide.gankarms.mvp.model.api.service
 
+import com.lishide.gankarms.mvp.model.entity.BaseResponse
 import com.lishide.gankarms.mvp.model.entity.GankEntity
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -20,11 +21,11 @@ interface CommonService {
             @Path("type") type: String?,
             @Path("pageSize") pageSize: Int,
             @Path("page") page: String
-    ): Observable<GankEntity>
+    ): Observable<BaseResponse<List<GankEntity>>>
 
     /**
      * 随机获取妹子图片
      */
     @GET("api/random/data/福利/10")
-    fun getRandomGirl(): Observable<GankEntity>
+    fun getRandomGirl(): Observable<BaseResponse<List<GankEntity>>>
 }

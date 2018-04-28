@@ -8,6 +8,7 @@ import com.jess.arms.integration.AppManager
 import com.jess.arms.mvp.BasePresenter
 import com.jess.arms.utils.RxLifecycleUtils
 import com.lishide.gankarms.mvp.contract.HomeChildContract
+import com.lishide.gankarms.mvp.model.entity.BaseResponse
 import com.lishide.gankarms.mvp.model.entity.GankEntity
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,7 +23,7 @@ import javax.inject.Inject
 class HomeChildPresenter @Inject
 constructor(model: HomeChildContract.Model,
             rootView: HomeChildContract.View,
-            private var mList: ArrayList<GankEntity.ResultsBean>?,
+            private var mList: ArrayList<GankEntity>?,
             private var mAdapter: RecyclerView.Adapter<*>?,
             private var mErrorHandler: RxErrorHandler?,
             private var mApplication: Application?,
@@ -70,8 +71,8 @@ constructor(model: HomeChildContract.Model,
                     }
                 }
                 //使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
-                .compose(RxLifecycleUtils.bindToLifecycle<GankEntity>(mRootView))
-                .subscribe(object : Observer<GankEntity> {
+                .compose(RxLifecycleUtils.bindToLifecycle<BaseResponse<List<GankEntity>>>(mRootView))
+                .subscribe(object : Observer<BaseResponse<List<GankEntity>>> {
                     override fun onComplete() {
                     }
 
@@ -81,8 +82,8 @@ constructor(model: HomeChildContract.Model,
                     override fun onSubscribe(d: Disposable) {
                     }
 
-                    override fun onNext(t: GankEntity) {
-                        if (!t.error) {
+                    override fun onNext(t: BaseResponse<List<GankEntity>>) {
+                        if (!t.isError) {
                             //如果是下拉刷新则清空列表
                             if (pullToRefresh) {
                                 mList?.clear()
@@ -93,7 +94,7 @@ constructor(model: HomeChildContract.Model,
                             if (pullToRefresh) {
                                 mAdapter?.notifyDataSetChanged()
                             } else {
-                                if (t.results.size == 0) {
+                                if (t.results.isEmpty()) {
                                     mRootView.hasLoadedAll()
                                 }
                                 mAdapter?.notifyItemRangeInserted(preEndIndex, t.results.size)

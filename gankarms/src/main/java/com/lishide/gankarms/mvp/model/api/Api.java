@@ -8,5 +8,4 @@ package com.lishide.gankarms.mvp.model.api;
  */
 public interface Api {
     String APP_DOMAIN = "http://gank.io/";
-    String RequestSuccess = "0";
 }

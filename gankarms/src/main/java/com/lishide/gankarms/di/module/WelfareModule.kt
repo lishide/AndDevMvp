@@ -39,10 +39,10 @@ class WelfareModule
 
     @FragmentScope
     @Provides
-    internal fun provideStoreList(): ArrayList<GankEntity.ResultsBean> = ArrayList()
+    internal fun provideStoreList(): ArrayList<GankEntity> = ArrayList()
 
     @FragmentScope
     @Provides
-    internal fun provideWelfareAdapter(list: ArrayList<GankEntity.ResultsBean>): RecyclerView.Adapter<*> =
+    internal fun provideWelfareAdapter(list: ArrayList<GankEntity>): RecyclerView.Adapter<*> =
             WelfareAdapter(list)
 }

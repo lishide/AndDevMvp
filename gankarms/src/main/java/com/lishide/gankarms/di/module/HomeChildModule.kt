@@ -39,10 +39,10 @@ class HomeChildModule
 
     @FragmentScope
     @Provides
-    internal fun provideList(): ArrayList<GankEntity.ResultsBean> = ArrayList()
+    internal fun provideList(): ArrayList<GankEntity> = ArrayList()
 
     @FragmentScope
     @Provides
-    internal fun provideAdapter(list: ArrayList<GankEntity.ResultsBean>): RecyclerView.Adapter<*> =
+    internal fun provideAdapter(list: ArrayList<GankEntity>): RecyclerView.Adapter<*> =
             GankAdapter(list)
 }

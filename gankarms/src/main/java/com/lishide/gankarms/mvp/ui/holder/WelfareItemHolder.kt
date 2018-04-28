@@ -18,7 +18,7 @@ import java.util.*
  * @author lishide
  * @date 2018/04/25
  */
-class WelfareItemHolder(itemView: View) : BaseHolder<GankEntity.ResultsBean>(itemView) {
+class WelfareItemHolder(itemView: View) : BaseHolder<GankEntity>(itemView) {
 
     private var mAvatar: ImageView? = null
     private val mAppComponent: AppComponent
@@ -40,7 +40,7 @@ class WelfareItemHolder(itemView: View) : BaseHolder<GankEntity.ResultsBean>(ite
         mImageLoader = mAppComponent.imageLoader()
     }
 
-    override fun setData(data: GankEntity.ResultsBean, position: Int) {
+    override fun setData(data: GankEntity, position: Int) {
         //itemView 的 Context 就是 Activity, Glide 会自动处理并和该 Activity 的生命周期绑定
         mImageLoader.loadImage(itemView.context,
                 ImageConfigImpl

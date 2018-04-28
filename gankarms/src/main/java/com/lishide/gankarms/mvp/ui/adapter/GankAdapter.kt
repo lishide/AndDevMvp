@@ -13,9 +13,9 @@ import com.lishide.gankarms.mvp.ui.holder.GankItemHolder
  * @author lishide
  * @date 2018/04/27
  */
-class GankAdapter(infos: List<GankEntity.ResultsBean>) : DefaultAdapter<GankEntity.ResultsBean>(infos) {
+class GankAdapter(infos: List<GankEntity>) : DefaultAdapter<GankEntity>(infos) {
 
-    override fun getHolder(v: View, viewType: Int): BaseHolder<GankEntity.ResultsBean> = GankItemHolder(v)
+    override fun getHolder(v: View, viewType: Int): BaseHolder<GankEntity> = GankItemHolder(v)
 
     override fun getLayoutId(viewType: Int): Int = R.layout.recycle_item_gank
 }

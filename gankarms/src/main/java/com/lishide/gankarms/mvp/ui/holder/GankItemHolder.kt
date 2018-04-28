@@ -19,7 +19,7 @@ import org.jetbrains.anko.startActivity
  * @author lishide
  * @date 2018/04/27
  */
-class GankItemHolder(itemView: View) : BaseHolder<GankEntity.ResultsBean>(itemView) {
+class GankItemHolder(itemView: View) : BaseHolder<GankEntity>(itemView) {
 
     private var ivImage: ImageView? = null
     private var tvDesc: TextView? = null
@@ -43,7 +43,7 @@ class GankItemHolder(itemView: View) : BaseHolder<GankEntity.ResultsBean>(itemVi
         mImageLoader = mAppComponent.imageLoader()
     }
 
-    override fun setData(data: GankEntity.ResultsBean, position: Int) {
+    override fun setData(data: GankEntity, position: Int) {
         tvAuthor?.text = data.who
         tvDesc?.text = data.desc
         tvDate?.text = data.publishedAt
