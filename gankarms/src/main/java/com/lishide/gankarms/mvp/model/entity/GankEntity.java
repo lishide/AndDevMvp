@@ -2,6 +2,11 @@ package com.lishide.gankarms.mvp.model.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Transient;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,7 +16,10 @@ import java.util.List;
  * @author lishide
  * @date 2018/04/25
  */
+@Entity
 public class GankEntity implements Serializable {
+
+    static final long serialVersionUID = 42L;
 
     /**
      * _id : 5a9cf1f5421aa9103fff20b1
@@ -26,6 +34,7 @@ public class GankEntity implements Serializable {
      * who : Alex Mikhnev
      */
 
+    @Id
     @SerializedName("_id")
     private String id;
     @SerializedName("createdAt")
@@ -44,8 +53,26 @@ public class GankEntity implements Serializable {
     private boolean used;
     @SerializedName("who")
     private String who;
+    @Transient
     @SerializedName("images")
     private List<String> images;
+
+    @Generated(hash = 2054367039)
+    public GankEntity(String id, String createdAt, String desc, String publishedAt, String source, String type, String url, boolean used, String who) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.desc = desc;
+        this.publishedAt = publishedAt;
+        this.source = source;
+        this.type = type;
+        this.url = url;
+        this.used = used;
+        this.who = who;
+    }
+
+    @Generated(hash = 598526695)
+    public GankEntity() {
+    }
 
     public String getId() {
         return id;
@@ -103,7 +130,7 @@ public class GankEntity implements Serializable {
         this.url = url;
     }
 
-    public boolean isUsed() {
+    public boolean getUsed() {
         return used;
     }
 

@@ -58,7 +58,7 @@ class GankItemHolder(itemView: View) : BaseHolder<GankEntity>(itemView) {
         ivImage?.setImageResource(imgResId)
 
         itemView.setOnClickListener {
-            it.context.startActivity<DetailActivity>("title" to data.desc, "url" to data.url)
+            it.context.startActivity<DetailActivity>(DetailActivity.PARAM_GANK to data)
         }
     }
 

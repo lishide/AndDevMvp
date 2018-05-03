@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'org.greenrobot.greendao'
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
     compileSdkVersion globalConfiguration.android["compileSdkVersion"]
@@ -46,6 +47,12 @@ android {
         disable "ResourceType"
         abortOnError false
     }
+
+    greendao {
+        schemaVersion 1//数据库版本号
+        daoPackage 'com.lishide.gankarms.app.greendao'//设置DaoMaster、DaoSession、Dao包名
+        targetGenDir 'src/main/java'//设置DaoMaster、DaoSession、Dao目录
+    }
 }
 
 dependencies {
@@ -88,4 +95,5 @@ dependencies {
     implementation appDependencies["paginate"]
     implementation appDependencies["okhttp-logging"]
     implementation appDependencies["bottombar"]
+    implementation 'org.greenrobot:greendao:3.2.2'
 }

@@ -6,6 +6,7 @@ import com.jess.arms.http.imageloader.ImageLoader
 import com.jess.arms.integration.AppManager
 import com.jess.arms.mvp.BasePresenter
 import com.lishide.gankarms.mvp.contract.DetailContract
+import com.lishide.gankarms.mvp.model.entity.GankEntity
 import me.jessyan.rxerrorhandler.core.RxErrorHandler
 import javax.inject.Inject
 
@@ -25,5 +26,19 @@ constructor(model: DetailContract.Model,
         this.mAppManager = null
         this.mImageLoader = null
         this.mApplication = null
+    }
+
+    fun getQuery(id: String) {
+        mRootView.onLikeChange(mModel.queryById(id).isNotEmpty())
+    }
+
+    fun removeById(id: String) {
+        mModel.removeById(id)
+        mRootView.onLikeChange(false)
+    }
+
+    fun addToLike(entity: GankEntity) {
+        mModel.addToLike(entity)
+        mRootView.onLikeChange(true)
     }
 }

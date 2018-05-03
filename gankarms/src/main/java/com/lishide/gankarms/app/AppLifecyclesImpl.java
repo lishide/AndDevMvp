@@ -69,6 +69,9 @@ public class AppLifecyclesImpl implements AppLifecycles {
         //Message msg = new Message();
         //msg.what = 0;
         //AppManager.post(msg); like EventBus
+
+        // initDB
+        GreenDaoHelper.initDatabase(application);
     }
 
     @Override

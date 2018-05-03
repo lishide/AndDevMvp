@@ -1,8 +1,10 @@
 package com.lishide.gankarms.mvp.ui.activity
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
@@ -16,8 +18,10 @@ import com.lishide.gankarms.R
 import com.lishide.gankarms.di.component.DaggerDetailComponent
 import com.lishide.gankarms.di.module.DetailModule
 import com.lishide.gankarms.mvp.contract.DetailContract
+import com.lishide.gankarms.mvp.model.entity.GankEntity
 import com.lishide.gankarms.mvp.presenter.DetailPresenter
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlin.properties.Delegates
 
 /**
  * 详情页面 DetailActivity
@@ -27,8 +31,14 @@ import kotlinx.android.synthetic.main.activity_detail.*
  */
 class DetailActivity : BaseActivity<DetailPresenter>(), DetailContract.View {
 
-    private var titleStr = ""
-    private var url = ""
+    private lateinit var entity: GankEntity
+    private var isLike by Delegates.observable(false) { _, _, new ->
+        fab.backgroundTintList = if (new) {
+            ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorAccent))
+        } else {
+            ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorD1))
+        }
+    }
 
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerDetailComponent //如找不到该类,请编译一下项目
@@ -45,13 +55,20 @@ class DetailActivity : BaseActivity<DetailPresenter>(), DetailContract.View {
         setContentView(R.layout.activity_detail)
 
         val bundle = this.intent.extras
-        titleStr = bundle.getString("title")
-        url = bundle.getString("url")
+        entity = bundle.getSerializable(PARAM_GANK) as GankEntity
 
-        this.title = titleStr
+        this.title = entity.desc
+
+        mPresenter?.getQuery(entity.id)
 
         fab.setOnClickListener {
-            showMsg("fab click")
+            if (isLike) {
+                mPresenter?.removeById(entity.id)
+                showMsg("已从收藏夹移除")
+            } else {
+                mPresenter?.addToLike(entity)
+                showMsg("已添加到收藏夹")
+            }
         }
         initWebView()
     }
@@ -70,8 +87,12 @@ class DetailActivity : BaseActivity<DetailPresenter>(), DetailContract.View {
                 override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest?): Boolean = true
             }
             webChromeClient = object : WebChromeClient() {}
-        }.loadUrl(url)
+        }.loadUrl(entity.url)
 
+    }
+
+    override fun onLikeChange(isLike: Boolean) {
+        this.isLike = isLike // 通过委托属性重置 FloatingActionButton 状态
     }
 
     override fun showLoading() {
@@ -119,5 +140,9 @@ class DetailActivity : BaseActivity<DetailPresenter>(), DetailContract.View {
             webView.destroy()
         }
         super.onDestroy()
+    }
+
+    companion object {
+        const val PARAM_GANK = "gank"
     }
 }
