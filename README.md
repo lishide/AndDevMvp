@@ -1,25 +1,26 @@
 # AndDevMvp
 目前在用的一个整合了大量主流开源项目高度可配置化的 Android MVP 快速集成框架——[MVPArms](https://github.com/JessYanCoding/MVPArms)，包含 MVP+Dagger2+Retrofit+OkHttp+RxJava2 等，及封装的常用工具类，快速开发，提高效率。
+
 application 的模块由 Kotlin 语言开发，`app` Module 是一个用 MVParms 写的简单 demo，构建新项目可直接参考此 demo；`gankarms` Module 是由此框架写的一个 Gank.io 客户端。
 
 ## Functionality & Libraries
-* MVP
-* Kotlin 语言
-* RxJava2
-* Retrofit
-* OkHttp
-* Dagger2
-* RxAndroid
-* Rxlifecycle
-* RxCache
-* RxPermissions
-* RxErrorHandler
-* Gson
-* Butterknife
-* Androideventbus
-* Timber
-* Glide
-* LeakCanary
+- MVP
+- Kotlin 语言
+- RxJava2
+- Retrofit
+- OkHttp
+- Dagger2
+- RxAndroid
+- Rxlifecycle
+- RxCache
+- RxPermissions
+- RxErrorHandler
+- Gson
+- Butterknife
+- Androideventbus
+- Timber
+- Glide
+- LeakCanary
 
 ## Tips
 基础开发框架使用 [MVPArms](https://github.com/JessYanCoding/MVPArms)，更多高级用法请看 Demo 与 wiki 文档。
@@ -36,7 +37,7 @@ application 的模块由 Kotlin 语言开发，`app` Module 是一个用 MVParms
 
 ......
 ### 混淆文件添加规则
-开发中发现使用混淆打包时，导出的安装包不能正常运行，报错找不到自己写的实体类和 presenter，则在混淆规则中添加 keep 规则。如：
+保留实体类和 presenter 不被混淆。如：
 ```groovy
 -keep class com.lishide.anddevmvp.mvp.model.entity.** { *;}
 -keep class com.lishide.anddevmvp.mvp.presenter.** { *;}
