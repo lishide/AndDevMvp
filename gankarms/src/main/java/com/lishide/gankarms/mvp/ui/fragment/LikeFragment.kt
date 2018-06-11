@@ -9,11 +9,14 @@ import com.jess.arms.base.BaseFragment
 import com.jess.arms.di.component.AppComponent
 import com.jess.arms.utils.ArmsUtils
 import com.jess.arms.utils.Preconditions.checkNotNull
+import com.lishide.gankarms.R
+import com.lishide.gankarms.app.constant.CategoryConstant
+import com.lishide.gankarms.di.component.DaggerLikeComponent
 import com.lishide.gankarms.di.module.LikeModule
 import com.lishide.gankarms.mvp.contract.LikeContract
 import com.lishide.gankarms.mvp.presenter.LikePresenter
-import com.lishide.gankarms.R
-import com.lishide.gankarms.di.component.DaggerLikeComponent
+import com.lishide.gankarms.mvp.ui.adapter.LikePagerAdapter
+import kotlinx.android.synthetic.main.fragment_like.*
 
 /**
  * 收藏 Fragment
@@ -22,6 +25,12 @@ import com.lishide.gankarms.di.component.DaggerLikeComponent
  * @date 2018/01/03
  */
 class LikeFragment : BaseFragment<LikePresenter>(), LikeContract.View {
+
+    private var mData = mutableListOf(
+            CategoryConstant.GIRLS_STR,
+            CategoryConstant.ARTICLES_STR
+    )
+    private var mLikePagerAdapter: LikePagerAdapter? = null
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerLikeComponent //如找不到该类,请编译一下项目
@@ -37,7 +46,9 @@ class LikeFragment : BaseFragment<LikePresenter>(), LikeContract.View {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-
+        mLikePagerAdapter = LikePagerAdapter(childFragmentManager, mData)
+        viewPager.adapter = mLikePagerAdapter
+        tabLayout.setupWithViewPager(viewPager)
     }
 
     /**

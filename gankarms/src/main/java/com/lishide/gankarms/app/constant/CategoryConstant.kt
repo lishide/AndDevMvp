@@ -11,8 +11,9 @@ object CategoryConstant {
     val ANDROID_STR = "Android"
     val IOS_STR = "iOS"
     val QIAN_STR = "前端"
-    val GIRLS_STR = "福利"
 
+    val GIRLS_STR = "妹子"
+    val ARTICLES_STR = "文章"
 
     val ANDROID_IOS = 1
     val GIRLS = 2
