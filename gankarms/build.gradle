@@ -95,5 +95,6 @@ dependencies {
     implementation appDependencies["paginate"]
     implementation appDependencies["okhttp-logging"]
     implementation appDependencies["bottombar"]
+    implementation appDependencies["baseRvAdapterHelper"]
     implementation 'org.greenrobot:greendao:3.2.2'
 }

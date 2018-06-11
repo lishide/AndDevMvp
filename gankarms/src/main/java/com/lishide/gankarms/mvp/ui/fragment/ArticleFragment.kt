@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Message
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
+import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +19,9 @@ import com.lishide.gankarms.di.component.DaggerArticleComponent
 import com.lishide.gankarms.di.module.ArticleModule
 import com.lishide.gankarms.mvp.contract.ArticleContract
 import com.lishide.gankarms.mvp.presenter.ArticlePresenter
+import kotlinx.android.synthetic.main.layout_empty_list.*
+import kotlinx.android.synthetic.main.layout_refresh_list.*
+import javax.inject.Inject
 
 /**
  * 文章 Fragment
@@ -23,7 +29,17 @@ import com.lishide.gankarms.mvp.presenter.ArticlePresenter
  * @author lishide
  * @date 2018/06/11
  */
-class ArticleFragment : BaseFragment<ArticlePresenter>(), ArticleContract.View {
+class ArticleFragment : BaseFragment<ArticlePresenter>(), ArticleContract.View,
+        SwipeRefreshLayout.OnRefreshListener {
+    //控件是否已经初始化
+    private var isCreateView: Boolean = false
+    //是否已经加载过数据
+    private var isLoadData = false
+
+    @Inject
+    lateinit var mLayoutManager: RecyclerView.LayoutManager
+    @Inject
+    lateinit var mAdapter: RecyclerView.Adapter<*>
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerArticleComponent //如找不到该类,请编译一下项目
@@ -39,7 +55,30 @@ class ArticleFragment : BaseFragment<ArticlePresenter>(), ArticleContract.View {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
+        swipeRefreshLayout.setOnRefreshListener(this)
+        ArmsUtils.configRecyclerView(recyclerView, mLayoutManager)
 
+        recyclerView.adapter = mAdapter
+
+        if (userVisibleHint) {
+            lazyLoad()
+        }
+        isCreateView = true
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser && isCreateView) {
+            lazyLoad()
+        }
+    }
+
+    private fun lazyLoad() {
+        //如果没有加载过就加载，否则就不再加载了
+        if (!isLoadData) {
+            //加载数据操作
+            mPresenter?.requestData(true)
+        }
     }
 
     /**
@@ -84,12 +123,16 @@ class ArticleFragment : BaseFragment<ArticlePresenter>(), ArticleContract.View {
 
     }
 
-    override fun showLoading() {
+    override fun onRefresh() {
+        mPresenter?.requestData(true)
+    }
 
+    override fun showLoading() {
+        swipeRefreshLayout.isRefreshing = true
     }
 
     override fun hideLoading() {
-
+        swipeRefreshLayout.isRefreshing = false
     }
 
     override fun showMessage(message: String) {
@@ -104,6 +147,13 @@ class ArticleFragment : BaseFragment<ArticlePresenter>(), ArticleContract.View {
 
     override fun killMyself() {
 
+    }
+
+    override fun getContext(): FragmentActivity? = activity
+
+    override fun setEmpty(isEmpty: Boolean) {
+        recyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
+        ll_empty.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
 
     companion object {

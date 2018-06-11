@@ -59,6 +59,7 @@ ext {
             "nineoldandroids"          : "com.nineoldandroids:library:2.4.0",
             "paginate"                 : "com.github.markomilos:paginate:0.5.1",
             "vlayout"                  : "com.alibaba.android:vlayout:1.1.0@aar",
+            "baseRvAdapterHelper"      : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40",
 
             //底部导航
             "bottombar"                : "com.roughike:bottom-bar:2.3.1",
