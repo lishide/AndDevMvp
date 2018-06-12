@@ -7,11 +7,11 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jess.arms.base.BaseFragment
 import com.jess.arms.di.component.AppComponent
 import com.jess.arms.utils.ArmsUtils
 import com.jess.arms.utils.Preconditions.checkNotNull
 import com.lishide.gankarms.R
+import com.lishide.gankarms.app.base.BaseLazyFragment
 import com.lishide.gankarms.di.component.DaggerMeiziComponent
 import com.lishide.gankarms.di.module.MeiziModule
 import com.lishide.gankarms.mvp.contract.MeiziContract
@@ -23,7 +23,7 @@ import com.lishide.gankarms.mvp.presenter.MeiziPresenter
  * @author lishide
  * @date 2018/06/11
  */
-class MeiziFragment : BaseFragment<MeiziPresenter>(), MeiziContract.View {
+class MeiziFragment : BaseLazyFragment<MeiziPresenter>(), MeiziContract.View {
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerMeiziComponent //如找不到该类,请编译一下项目
@@ -40,6 +40,9 @@ class MeiziFragment : BaseFragment<MeiziPresenter>(), MeiziContract.View {
 
     override fun initData(savedInstanceState: Bundle?) {
 
+    }
+
+    override fun onUserVisible() {
     }
 
     /**

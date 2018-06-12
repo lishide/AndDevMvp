@@ -10,12 +10,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jess.arms.base.BaseFragment
 import com.jess.arms.base.DefaultAdapter
 import com.jess.arms.di.component.AppComponent
 import com.jess.arms.utils.ArmsUtils
 import com.jess.arms.utils.Preconditions.checkNotNull
 import com.lishide.gankarms.R
+import com.lishide.gankarms.app.base.BaseLazyFragment
 import com.lishide.gankarms.di.component.DaggerHomeChildComponent
 import com.lishide.gankarms.di.module.HomeChildModule
 import com.lishide.gankarms.mvp.contract.HomeChildContract
@@ -31,11 +31,9 @@ import javax.inject.Inject
  * @author lishide
  * @date 2018/04/26
  */
-class HomeChildFragment : BaseFragment<HomeChildPresenter>(), HomeChildContract.View,
+class HomeChildFragment : BaseLazyFragment<HomeChildPresenter>(), HomeChildContract.View,
         SwipeRefreshLayout.OnRefreshListener {
 
-    //控件是否已经初始化
-    private var isCreateView: Boolean = false
     //是否已经加载过数据
     private var isLoadData = false
 
@@ -64,28 +62,15 @@ class HomeChildFragment : BaseFragment<HomeChildPresenter>(), HomeChildContract.
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        type = arguments?.getString(ARG_PARAM)
-
         swipeRefreshLayout.setOnRefreshListener(this)
         ArmsUtils.configRecyclerView(recyclerView, mLayoutManager)
 
         recyclerView.adapter = mAdapter
         initPaginate()
-
-        if (userVisibleHint) {
-            lazyLoad()
-        }
-        isCreateView = true
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser && isCreateView) {
-            lazyLoad()
-        }
-    }
-
-    private fun lazyLoad() {
+    override fun onUserVisible() {
+        type = arguments?.getString(ARG_PARAM)
         //如果没有加载过就加载，否则就不再加载了
         if (!isLoadData) {
             //加载数据操作
@@ -176,6 +161,7 @@ class HomeChildFragment : BaseFragment<HomeChildPresenter>(), HomeChildContract.
     }
 
     override fun setEmpty(isEmpty: Boolean) {
+        isLoadData = true
         recyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
         ll_empty.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }

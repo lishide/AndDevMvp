@@ -10,11 +10,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jess.arms.base.BaseFragment
 import com.jess.arms.di.component.AppComponent
 import com.jess.arms.utils.ArmsUtils
 import com.jess.arms.utils.Preconditions.checkNotNull
 import com.lishide.gankarms.R
+import com.lishide.gankarms.app.base.BaseLazyFragment
 import com.lishide.gankarms.di.component.DaggerArticleComponent
 import com.lishide.gankarms.di.module.ArticleModule
 import com.lishide.gankarms.mvp.contract.ArticleContract
@@ -29,10 +29,8 @@ import javax.inject.Inject
  * @author lishide
  * @date 2018/06/11
  */
-class ArticleFragment : BaseFragment<ArticlePresenter>(), ArticleContract.View,
+class ArticleFragment : BaseLazyFragment<ArticlePresenter>(), ArticleContract.View,
         SwipeRefreshLayout.OnRefreshListener {
-    //控件是否已经初始化
-    private var isCreateView: Boolean = false
     //是否已经加载过数据
     private var isLoadData = false
 
@@ -59,22 +57,9 @@ class ArticleFragment : BaseFragment<ArticlePresenter>(), ArticleContract.View,
         ArmsUtils.configRecyclerView(recyclerView, mLayoutManager)
 
         recyclerView.adapter = mAdapter
-
-        if (userVisibleHint) {
-            lazyLoad()
-        }
-        isCreateView = true
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser && isCreateView) {
-            lazyLoad()
-        }
-    }
-
-    private fun lazyLoad() {
-        //如果没有加载过就加载，否则就不再加载了
+    override fun onUserVisible() {
         if (!isLoadData) {
             //加载数据操作
             mPresenter?.requestData(true)
@@ -152,6 +137,7 @@ class ArticleFragment : BaseFragment<ArticlePresenter>(), ArticleContract.View,
     override fun getContext(): FragmentActivity? = activity
 
     override fun setEmpty(isEmpty: Boolean) {
+        isLoadData = true
         recyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
         ll_empty.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
