@@ -64,10 +64,10 @@ class DetailActivity : BaseActivity<DetailPresenter>(), DetailContract.View {
         fab.setOnClickListener {
             if (isLike) {
                 mPresenter?.removeById(entity.id)
-                showMsg("已从收藏夹移除")
+                showMsg(getString(R.string.msg_remove_like))
             } else {
                 mPresenter?.addToLike(entity)
-                showMsg("已添加到收藏夹")
+                showMsg(getString(R.string.msg_add_like))
             }
         }
         initWebView()

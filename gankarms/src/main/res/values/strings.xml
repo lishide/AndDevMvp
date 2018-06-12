@@ -5,4 +5,6 @@
     <string name="title_home">首页</string>
     <string name="title_welfare">福利</string>
     <string name="title_like">收藏</string>
+    <string name="msg_remove_like">已从收藏夹移除</string>
+    <string name="msg_add_like">已添加到收藏夹</string>
 </resources>

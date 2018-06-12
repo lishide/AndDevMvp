@@ -6,6 +6,8 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.lishide.gankarms.R
 import com.lishide.gankarms.app.constant.CategoryConstant
 import com.lishide.gankarms.mvp.model.entity.GankEntity
+import com.lishide.gankarms.mvp.ui.activity.DetailActivity
+import org.jetbrains.anko.startActivity
 
 /**
  * 收藏的干货列表适配器
@@ -29,5 +31,9 @@ class ArticleAdapter(data: List<GankEntity>?) : BaseQuickAdapter<GankEntity, Bas
                     else -> 0
                 }
         ivImage?.setImageResource(imgResId)
+
+        helper?.itemView?.setOnClickListener {
+            it.context.startActivity<DetailActivity>(DetailActivity.PARAM_GANK to item)
+        }
     }
 }
