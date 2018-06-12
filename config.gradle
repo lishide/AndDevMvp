@@ -59,10 +59,13 @@ ext {
             "nineoldandroids"          : "com.nineoldandroids:library:2.4.0",
             "paginate"                 : "com.github.markomilos:paginate:0.5.1",
             "vlayout"                  : "com.alibaba.android:vlayout:1.1.0@aar",
-            "baseRvAdapterHelper"      : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40",
 
+            //====================== 此区域为 App 定制需要的第三方，其他为框架必需。======================
             //底部导航
             "bottombar"                : "com.roughike:bottom-bar:2.3.1",
+            "greendao"                 : "org.greenrobot:greendao:3.2.2",
+            "baseRvAdapterHelper"      : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40",
+            //======================================================================================
 
             //rx1
             "rxandroid"                : "io.reactivex:rxandroid:1.2.1",
