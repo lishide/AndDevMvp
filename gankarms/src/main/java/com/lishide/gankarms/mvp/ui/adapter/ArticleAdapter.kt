@@ -10,7 +10,7 @@ import com.lishide.gankarms.mvp.ui.activity.DetailActivity
 import org.jetbrains.anko.startActivity
 
 /**
- * 收藏的干货列表适配器
+ * 干货列表适配器
  *
  * @author lishide
  * @date 2018/06/11

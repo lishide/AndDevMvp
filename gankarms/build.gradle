@@ -98,4 +98,6 @@ dependencies {
     implementation appDependencies["bottombar"]
     implementation appDependencies["greendao"]
     implementation appDependencies["baseRvAdapterHelper"]
+    implementation appDependencies["smartRefreshLayout"]
+    implementation appDependencies["smartRefreshHeader"]
 }
