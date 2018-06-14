@@ -53,7 +53,6 @@ class HomeChildSmartFragment : BaseLazyFragment<HomeChildSmartPresenter>(), Home
 
     override fun initData(savedInstanceState: Bundle?) {
         ArmsUtils.configRecyclerView(recyclerView, mLayoutManager)
-
         recyclerView.adapter = mAdapter
 
         refreshLayout.setOnLoadMoreListener {
@@ -132,7 +131,7 @@ class HomeChildSmartFragment : BaseLazyFragment<HomeChildSmartPresenter>(), Home
         //如果没有加载过就加载，否则就不再加载了
         if (!isLoadData) {
             //加载数据操作
-            mPresenter?.requestData(type, true)
+            refreshLayout.autoRefresh()
         }
     }
 
