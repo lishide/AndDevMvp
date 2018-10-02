@@ -51,9 +51,17 @@ class UserItemHolder(itemView: View) : BaseHolder<User>(itemView) {
                         .build())
     }
 
+    /**
+     * 在 Activity 的 onDestroy 中使用 {@link DefaultAdapter#releaseAllHolder(RecyclerView)} 方法 (super.onDestroy() 之前)
+     * {@link BaseHolder#onRelease()} 才会被调用, 可以在此方法中释放一些资源
+     */
     override fun onRelease() {
+        //只要传入的 Context 为 Activity, Glide 就会自己做好生命周期的管理, 其实在上面的代码中传入的 Context 就是 Activity
+        //所以在 onRelease 方法中不做 clear 也是可以的, 但是在这里想展示一下 clear 的用法
         mImageLoader.clear(mAppComponent.application(), ImageConfigImpl.builder()
                 .imageViews(mAvatar)
                 .build())
+        this.mAvatar = null
+        this.mTvName = null
     }
 }

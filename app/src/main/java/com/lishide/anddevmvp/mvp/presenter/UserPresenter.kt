@@ -57,17 +57,22 @@ constructor(
         PermissionUtil.externalStorage(object : PermissionUtil.RequestPermission {
             override fun onRequestPermissionSuccess() {
                 //request permission success, do something.
+                requestFromModel(pullToRefresh)
             }
 
             override fun onRequestPermissionFailure(permissions: List<String>) {
                 mRootView.showMessage("Request permissions failure")
+                mRootView.hideLoading()
             }
 
             override fun onRequestPermissionFailureWithAskNeverAgain(permissions: List<String>) {
                 mRootView.showMessage("Need to go to the settings")
+                mRootView.hideLoading()
             }
         }, mRootView.getRxPermissions(), mErrorHandler)
+    }
 
+    private fun requestFromModel(pullToRefresh: Boolean) {
         //下拉刷新默认只请求第一页
         if (pullToRefresh) {
             lastUserId = 1
