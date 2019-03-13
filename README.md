@@ -29,8 +29,6 @@ application 的模块由 Kotlin 语言开发，`app` Module 是一个用 MVParms
 在AS模板插件中添加 [MVPArmsTemplate](https://github.com/JessYanCoding/MVPArmsTemplate)，在 Root 包下 new Activity，
 选择`MVPArms 全家桶`，自动生成所有整套 MVP、Dagger2 等的代码，好用的如丝般顺滑~~
 
-目前的模板，暂时发现有个小问题，选择语言为 `Kotlin` 时，生成的代码中 `savedInstanceState: Bundle` 这个变量的类型应为可空类型，需要改一下，加个`?`，即 `savedInstanceState: Bundle?` 则正确，否则无法正常运行；
-
 生成后，编译一下项目；
 
 如找不到类似 `DaggerMainComponent` 的类，请反复编译一下项目；
