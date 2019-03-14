@@ -61,7 +61,7 @@ android {
         }
 
         dev {
-            applicationId = "com.hmcl.bao.dev"
+            applicationId = "com.lishide.anddevmvp.dev"
             manifestPlaceholders = [
                     APP_NAME: "@string/app_name_test"
             ]
