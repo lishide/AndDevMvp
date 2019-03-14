@@ -1,20 +1,36 @@
-package com.lishide.gankarms.app;
+/*
+ * Copyright 2018 JessYan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package me.jessyan.armscomponent.commonsdk.core;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.jess.arms.http.GlobalHttpHandler;
-import com.jess.arms.http.log.RequestInterceptor;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
 /**
+ * ================================================
  * 展示 {@link GlobalHttpHandler} 的用法
- *
- * @author lishide
- * @date 2017/11/09
+ * <p>
+ * Created by JessYan on 04/09/2017 17:06
+ * <a href="mailto:jess.yan.effort@gmail.com">Contact me</a>
+ * <a href="https://github.com/JessYanCoding">Follow me</a>
+ * ================================================
  */
 public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
     private Context context;
@@ -34,17 +50,7 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
      */
     @Override
     public Response onHttpResultResponse(String httpResult, Interceptor.Chain chain, Response response) {
-        // 这里可以先客户端一步拿到每一次http请求的结果,可以解析成json,做一些操作,如检测到token过期后
-        // 重新请求token,并重新执行请求
-        if (!TextUtils.isEmpty(httpResult) && RequestInterceptor.isJson(response.body().contentType())) {
-            try {
-            } catch (Exception e) {
-                e.printStackTrace();
-                return response;
-            }
-        }
-
-          /* 这里如果发现 token 过期, 可以先请求最新的 token, 然后在拿新的 token 放入 Request 里去重新请求
+        /* 这里如果发现 token 过期, 可以先请求最新的 token, 然后在拿新的 token 放入 Request 里去重新请求
         注意在这个回调之前已经调用过 proceed(), 所以这里必须自己去建立网络请求, 如使用 Okhttp 使用新的 Request 去请求
         create a new request and modify it accordingly using the new token
         Request newRequest = chain.request().newBuilder().header("token", newToken)
@@ -54,7 +60,7 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
 
         response.body().close();
         如果使用 Okhttp 将新的请求, 请求成功后, 再将 Okhttp 返回的 Response return 出去即可
-        如果不需要返回新的结果, 则直接把参数 response 返回出去即可*/
+        如果不需要返回新的结果, 则直接把参数 response 返回出去即可 */
         return response;
     }
 
@@ -67,7 +73,7 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
      */
     @Override
     public Request onHttpRequestBefore(Interceptor.Chain chain, Request request) {
-         /* 如果需要再请求服务器之前做一些操作, 则重新返回一个做过操作的的 Request 如增加 Header, 不做操作则直接返回参数 request
+        /* 如果需要再请求服务器之前做一些操作, 则重新返回一个做过操作的的 Request 如增加 Header, 不做操作则直接返回参数 request
         return chain.request().newBuilder().header("token", tokenId)
                               .build(); */
         return request;

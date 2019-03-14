@@ -1,0 +1,12 @@
+<resources>
+    <string name="public_app_name">CommonSDK</string>
+
+    <!--权限-->
+    <string name="public_title_dialog">提示</string>
+    <string name="public_message_permission_rationale">授予以下权限以继续该程序：\n\n%1$s</string>
+    <string name="public_message_permission_always_failed">我们需要的一些权限被您拒绝或者系统发生错误申请失败，请您到设置页面手动授予以下权限：\n\n%1$s</string>
+    <string name="public_message_setting_comeback">用户从设置页面返回</string>
+    <string name="public_resume">继续</string>
+    <string name="public_cancel">取消</string>
+    <string name="public_to_setting">去设置</string>
+</resources>

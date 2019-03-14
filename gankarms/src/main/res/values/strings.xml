@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">gankarms</string>
+    <string name="app_name_test">测试-gankarms</string>
+
     <string name="back">back</string>
 
     <string name="title_home">首页</string>

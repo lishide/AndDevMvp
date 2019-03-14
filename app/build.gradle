@@ -19,17 +19,25 @@ android {
         versionCode globalConfiguration.android["versionCode"]
         versionName globalConfiguration.android["versionName"]
         testInstrumentationRunner globalConfiguration.dependencies["androidJUnitRunner"]
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
         // dex突破65535的限制
         multiDexEnabled true
 
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86_64", "x86"
         }
+
+        flavorDimensions rootProject.ext.android.defultDimensions
     }
     buildTypes {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "USE_CANARY", "true"
+            buildConfigField "boolean", "IS_BUILD_MODULE", "${isBuildModule}"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -37,12 +45,29 @@ android {
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false"
             buildConfigField "boolean", "USE_CANARY", "false"
+            buildConfigField "boolean", "IS_BUILD_MODULE", "${isBuildModule}"
             minifyEnabled true
             shrinkResources true
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        official {
+            manifestPlaceholders = [
+                    APP_NAME: "@string/app_name"
+            ]
+        }
+
+        dev {
+            applicationId = "com.hmcl.bao.dev"
+            manifestPlaceholders = [
+                    APP_NAME: "@string/app_name_test"
+            ]
+        }
+    }
+
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -57,39 +82,22 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    def appDependencies = rootProject.ext.dependencies
-    //test
-    testImplementation appDependencies["junit"]
-    androidTestImplementation appDependencies["runner"]
-    androidTestImplementation appDependencies["espresso-core"]
-    debugImplementation appDependencies["canary-debug"]
-    releaseImplementation appDependencies["canary-release"]
-    testImplementation appDependencies["canary-release"]
-    //Android
-    implementation appDependencies["constraintLayout"]
-    // Seems like it is having version conflict issue.
-    // All support library must be of same version. However,
-    // I didn't use v4 support library before and it works.
-    // I don't know why updating android studio to 2.1.1 causes the issue.
-    // I just force all v4 library to the same as other support libraries.
-//    implementation(appDependencies["support-v4"]) {
-//        force = true
-//    }
-    implementation(appDependencies["cardview-v7"]) {
-        exclude module: 'support-annotations'
-    }
-    //MVP 框架（使用Rxjava2）
-    implementation appDependencies["mvparms"]
+
+    implementation project(":CommonSDK")
+    //因为 CommonRes 依赖了 CommonSDK, 所以如果业务模块需要公共 UI 组件就依赖 CommonRes, 如果不需要就只依赖 CommonSDK
+    implementation project(":CommonRes")
+    implementation project(":CommonService")
+
     //tools
-    kapt appDependencies["dagger2-compiler"]
-    implementation appDependencies["progressmanager"]
-    implementation appDependencies["retrofit-url-manager"]
-    implementation appDependencies["lifecyclemodel"]
+    kapt rootProject.ext.dependencies["arouter-compiler"]
+    kapt rootProject.ext.dependencies["dagger2-compiler"]
     //view
-    kapt(appDependencies["butterknife-compiler"]) {
+    kapt(rootProject.ext.dependencies["butterknife-compiler"]) {
         exclude module: 'support-annotations'
     }
-    implementation appDependencies["paginate"]
-    implementation appDependencies["okhttp-logging"]
-    implementation appDependencies["bottombar"]
+    //test
+    testImplementation rootProject.ext.dependencies["junit"]
+    debugImplementation rootProject.ext.dependencies["canary-debug"]
+    releaseImplementation rootProject.ext.dependencies["canary-release"]
+    testImplementation rootProject.ext.dependencies["canary-release"]
 }

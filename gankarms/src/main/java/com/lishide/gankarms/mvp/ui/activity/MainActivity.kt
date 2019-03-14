@@ -65,9 +65,9 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
             if (currentFragment != to) {
                 currentFragment = to
                 if (to?.isAdded == false) {
-                    transaction.hide(from).add(R.id.contentContainer, to)
+                    transaction.hide(from!!).add(R.id.contentContainer, to)
                 } else {
-                    transaction.hide(from).show(to)
+                    transaction.hide(from!!).show(to!!)
                 }
             }
             transaction.commitAllowingStateLoss()
@@ -98,7 +98,7 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
         if (homeFragment == null) {
             homeFragment = HomeFragment()
         }
-        supportFragmentManager.beginTransaction().add(R.id.contentContainer, homeFragment).commitAllowingStateLoss()
+        supportFragmentManager.beginTransaction().add(R.id.contentContainer, homeFragment!!).commitAllowingStateLoss()
         currentFragment = homeFragment
         mBottomBar?.setOnTabSelectListener(mOnTabSelectListener)
     }

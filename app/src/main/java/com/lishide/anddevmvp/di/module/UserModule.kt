@@ -1,5 +1,6 @@
 package com.lishide.anddevmvp.di.module
 
+import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.jess.arms.di.scope.ActivityScope
@@ -43,7 +44,7 @@ class UserModule
     @ActivityScope
     @Provides
     internal fun provideRxPermissions(): RxPermissions {
-        return RxPermissions(view.getActivity())
+        return RxPermissions(view.getActivity() as FragmentActivity)
     }
 
     @ActivityScope

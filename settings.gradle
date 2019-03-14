@@ -1,1 +1,2 @@
+include ':CommonSDK', ':CommonService', ':CommonRes'
 include ':app', ':gankarms'
