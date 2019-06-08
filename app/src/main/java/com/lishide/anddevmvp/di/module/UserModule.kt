@@ -1,8 +1,8 @@
 package com.lishide.anddevmvp.di.module
 
-import android.support.v4.app.FragmentActivity
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.jess.arms.di.scope.ActivityScope
 import com.lishide.anddevmvp.mvp.contract.UserContract
 import com.lishide.anddevmvp.mvp.model.UserModel
@@ -44,12 +44,12 @@ class UserModule
     @ActivityScope
     @Provides
     internal fun provideRxPermissions(): RxPermissions {
-        return RxPermissions(view.getActivity() as FragmentActivity)
+        return RxPermissions(view.getActivity() as androidx.fragment.app.FragmentActivity)
     }
 
     @ActivityScope
     @Provides
-    internal fun provideLayoutManager(): RecyclerView.LayoutManager {
+    internal fun provideLayoutManager(): androidx.recyclerview.widget.RecyclerView.LayoutManager {
         return GridLayoutManager(view.getActivity(), 2)
     }
 
@@ -61,7 +61,7 @@ class UserModule
 
     @ActivityScope
     @Provides
-    internal fun provideUserAdapter(list: ArrayList<User>): RecyclerView.Adapter<*> {
+    internal fun provideUserAdapter(list: ArrayList<User>): androidx.recyclerview.widget.RecyclerView.Adapter<*> {
         return UserAdapter(list)
     }
 }

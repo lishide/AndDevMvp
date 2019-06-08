@@ -3,8 +3,8 @@ package com.lishide.anddevmvp.mvp.ui.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.recyclerview.widget.RecyclerView
 import com.jess.arms.base.BaseActivity
 import com.jess.arms.base.DefaultAdapter
 import com.jess.arms.di.component.AppComponent
@@ -28,14 +28,14 @@ import javax.inject.Inject
  * @see [View wiki 官方文档](https://github.com/JessYanCoding/MVPArms/wiki.2.4.2)
  */
 class UserActivity : BaseActivity<UserPresenter>(), UserContract.View,
-        SwipeRefreshLayout.OnRefreshListener {
+        androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
     lateinit var mRxPermissions: RxPermissions
     @Inject
-    lateinit var mLayoutManager: RecyclerView.LayoutManager
+    lateinit var mLayoutManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
     @Inject
-    lateinit var mAdapter: RecyclerView.Adapter<*>
+    lateinit var mAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>
 
     private var mPaginate: Paginate? = null
     private var isLoadingMore: Boolean = false

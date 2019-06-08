@@ -36,9 +36,11 @@ dependencies {
 //    implementation(appDependencies["support-v4"]) {
 //        force = true
 //    }
-    api(rootProject.ext.dependencies["cardview-v7"]) {
-            exclude module: 'support-annotations'
-    }
+    api rootProject.ext.dependencies["cardview"]
     api rootProject.ext.dependencies["paginate"]
     api rootProject.ext.dependencies["lottie"]
+    api rootProject.ext.dependencies["smartRefreshLayout"]
+    api rootProject.ext.dependencies["smartRefreshHeader"]
+    api rootProject.ext.dependencies["baseRvAdapterHelper"]
+    api rootProject.ext.dependencies["jsbridge"]
 }

@@ -1,11 +1,11 @@
 package com.lishide.anddevmvp.mvp.presenter
 
 import android.app.Application
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.OnLifecycleEvent
-import android.support.v4.app.Fragment
-import android.support.v4.app.SupportActivity
-import android.support.v7.widget.RecyclerView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.fragment.app.Fragment
+import androidx.core.app.ComponentActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.jess.arms.di.scope.ActivityScope
 import com.jess.arms.integration.AppManager
 import com.jess.arms.mvp.BasePresenter
@@ -36,7 +36,7 @@ constructor(
         private var mAppManager: AppManager?,
         private var mApplication: Application?,
         private var mUsers: ArrayList<User>?,
-        private var mAdapter: RecyclerView.Adapter<*>?
+        private var mAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>?
 ) : BasePresenter<UserContract.Model, UserContract.View>(model, rootView) {
     private var lastUserId = 1
     private var isFirst = true

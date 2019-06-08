@@ -67,10 +67,6 @@ dependencies {
     api rootProject.ext.dependencies["progressmanager"]
     api rootProject.ext.dependencies["retrofit-url-manager"]
 
-    api appDependencies["smartRefreshLayout"]
-    api appDependencies["smartRefreshHeader"]
-    api appDependencies["baseRvAdapterHelper"]
-    api appDependencies["jsbridge"]
     api appDependencies["avi_loading"]
     api appDependencies["permission"]
     api appDependencies["album"]
