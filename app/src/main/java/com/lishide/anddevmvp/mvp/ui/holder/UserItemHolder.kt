@@ -11,6 +11,7 @@ import com.jess.arms.utils.ArmsUtils
 import com.lishide.anddevmvp.R
 import com.lishide.anddevmvp.mvp.model.entity.User
 import io.reactivex.Observable
+import me.jessyan.armscomponent.commonsdk.imgaEngine.config.CommonImageConfigImpl
 
 /**
  * 用户Item Holder：展示 [BaseHolder] 的用法
@@ -44,7 +45,7 @@ class UserItemHolder(itemView: View) : BaseHolder<User>(itemView) {
 
         //itemView 的 Context 就是 Activity, Glide 会自动处理并和该 Activity 的生命周期绑定
         mImageLoader.loadImage(itemView.context,
-                ImageConfigImpl
+                CommonImageConfigImpl
                         .builder()
                         .url(data.avatarUrl)
                         .imageView(mAvatar)
