@@ -6,7 +6,6 @@ import android.widget.TextView
 import com.jess.arms.base.BaseHolder
 import com.jess.arms.di.component.AppComponent
 import com.jess.arms.http.imageloader.ImageLoader
-import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
 import com.lishide.anddevmvp.R
 import com.lishide.anddevmvp.mvp.model.entity.User
@@ -59,7 +58,7 @@ class UserItemHolder(itemView: View) : BaseHolder<User>(itemView) {
     override fun onRelease() {
         //只要传入的 Context 为 Activity, Glide 就会自己做好生命周期的管理, 其实在上面的代码中传入的 Context 就是 Activity
         //所以在 onRelease 方法中不做 clear 也是可以的, 但是在这里想展示一下 clear 的用法
-        mImageLoader.clear(mAppComponent.application(), ImageConfigImpl.builder()
+        mImageLoader.clear(mAppComponent.application(), CommonImageConfigImpl.builder()
                 .imageViews(mAvatar)
                 .build())
         this.mAvatar = null
