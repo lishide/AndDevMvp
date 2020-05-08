@@ -96,7 +96,7 @@ dependencies {
     kapt rootProject.ext.dependencies["dagger2-compiler"]
     //view
     kapt(rootProject.ext.dependencies["butterknife-compiler"]) {
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
     //test
     testImplementation rootProject.ext.dependencies["junit"]

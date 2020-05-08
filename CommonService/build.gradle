@@ -6,9 +6,6 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
-        versionCode rootProject.ext.android["versionCode"]
-        versionName rootProject.ext.android["versionName"]
-
         testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
     }
 
@@ -23,5 +20,4 @@ android {
 
 dependencies {
     compileOnly rootProject.ext.dependencies["arouter"]
-    compileOnly rootProject.ext.dependencies["appcompat-v7"]
 }
