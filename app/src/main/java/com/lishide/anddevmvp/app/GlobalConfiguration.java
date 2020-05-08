@@ -2,14 +2,12 @@ package com.lishide.anddevmvp.app;
 
 import android.app.Application;
 import android.content.Context;
-import androidx.fragment.app.Fragment;
+
 import androidx.fragment.app.FragmentManager;
 
 import com.jess.arms.base.delegate.AppLifecycles;
 import com.jess.arms.di.module.GlobalConfigModule;
 import com.jess.arms.integration.ConfigModule;
-import com.jess.arms.utils.ArmsUtils;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.util.List;
 
@@ -43,16 +41,6 @@ public final class GlobalConfiguration implements ConfigModule {
 
     @Override
     public void injectFragmentLifecycle(Context context, List<FragmentManager.FragmentLifecycleCallbacks> lifecycles) {
-        lifecycles.add(new FragmentManager.FragmentLifecycleCallbacks() {
-            @Override
-            public void onFragmentDestroyed(FragmentManager fm, Fragment f) {
-                ((RefWatcher) ArmsUtils
-                        .obtainAppComponentFromContext(f.getActivity())
-                        .extras()
-                        .get(RefWatcher.class.getName()))
-                        .watch(f);
-            }
-        });
     }
 
 }

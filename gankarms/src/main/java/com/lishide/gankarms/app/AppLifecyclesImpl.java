@@ -2,17 +2,14 @@ package com.lishide.gankarms.app;
 
 import android.app.Application;
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.jess.arms.base.delegate.AppLifecycles;
-import com.jess.arms.utils.ArmsUtils;
-import com.lishide.gankarms.BuildConfig;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 
 /**
  * 展示 {@link AppLifecycles} 的用法
@@ -39,15 +36,6 @@ public class AppLifecyclesImpl implements AppLifecycles {
 
     @Override
     public void onCreate(@NonNull Application application) {
-        if (LeakCanary.isInAnalyzerProcess(application)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        //leakCanary内存泄露检查
-        ArmsUtils.obtainAppComponentFromContext(application).extras().put(RefWatcher.class.getName(),
-                BuildConfig.USE_CANARY ? LeakCanary.install(application) : RefWatcher.DISABLED);
-
         // initDB
         GreenDaoHelper.initDatabase(application);
     }
