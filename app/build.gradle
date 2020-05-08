@@ -9,7 +9,6 @@ apply plugin: 'kotlin-kapt'
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
     compileSdkVersion globalConfiguration.android["compileSdkVersion"]
-    buildToolsVersion globalConfiguration.android["buildToolsVersion"]
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
