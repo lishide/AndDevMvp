@@ -26,7 +26,7 @@ ext {
 
     dependencies = [
             //support
-            "appcompat-v7"             : 'androidx.appcompat:appcompat:1.0.0',
+            "appcompat"                : "androidx.appcompat:appcompat:${version["androidx_version"]}",
             "design"                   : "com.google.android.material:material:${version["androidx_version"]}",
             "support-v4"               : "androidx.legacy:legacy-support-v4:1.0.0",
             "cardview"                 : "androidx.cardview:cardview:1.0.0",
